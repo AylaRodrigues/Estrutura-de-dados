@@ -1,0 +1,63 @@
+//Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
+//Questao 1- Listas recursivas
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct lista
+{
+	int info;
+	struct lista *prox;
+
+}lista;
+
+lista *InserirFinal(lista *l, int x)
+{
+	if (l==NULL)
+	{
+		lista *no=(lista*)malloc(sizeof(lista));
+		no->info=x;
+		no->prox=NULL;
+		return no;
+	}
+	else
+	l->prox=InserirFinal(l->prox,x);
+	return 1;
+}
+
+int main()
+{
+	int opcao;
+	int l;
+	int elementoInserir;
+	
+	printf("O que deseja fazer?\n 1.Inserir elemento\n 2.Somar elementos da lista\n 3.Contar elementos repetidos\n 4.Remover elemento\n 5.Imprimir elementos\n 6.Sair\n");
+	scanf("%d", &opcao);
+	while(opcao=!6)
+	{
+		if (opcao==1)//Inserir elemento
+		{
+			printf("Qual elemento deseja inserir?\n");
+			scanf("%d", &elementoInserir);
+			l= InserirFinal(l, elementoInserir);
+		}
+		else if(opcao==2)//somar elementos da lista
+		{
+
+		}
+		else if(opcao==3)//contar elementos repetidos
+		{
+
+		}
+		else if (opcao==4)//remover elemento da lista
+		{
+			
+		}
+		else//quando a opcao for 5, imprimir elementos
+		{
+			
+		}
+	}
+		
+  return 0;
+}
