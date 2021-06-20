@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 typedef struct lista
 {
@@ -21,7 +22,7 @@ lista *InserirFinal(lista *l, int x)
 		return no;
 	}
 	else
-	l->prox=InserirFinal(l->prox,x);
+		l->prox=InserirFinal(l->prox,x);
 	return l;
 }
 
@@ -29,9 +30,20 @@ int SomarLista(lista *l, int ct){
 	if(l != NULL){
 		ct = ct+ l->info;
 		ct = SomarLista(l->prox, ct);
-	}
+	}		
 	
 	return ct;
+}
+
+int listaRepetido(lista *l, int ct, int elemento){
+	if(l !=NULL){
+		if(l->info == elemento){
+			ct++;
+		}
+		ct = listaRepetido(l->prox,ct,elemento);
+	}
+	
+	return ct; 
 }
 
 int main()
@@ -39,20 +51,21 @@ int main()
 	setlocale(LC_ALL, "");
 	
 	int opcao = 0;
-	int elementoInserir, somaLista;
-	struct lista *l = NULL; //cria a lista
+	int elemento,somaLista, repetido;
+	struct lista *l = NULL; //cria lista
 	
-	while(opcao=!6)
+	
+	while(opcao!=6)
 	{
-		printf("O que deseja fazer?\n 1.Inserir elemento\n 2.Somar elementos da lista\n 3.Contar elementos repetidos\n 4.Remover elemento\n 5.Imprimir elementos\n 6.Sair\n");
+		printf("O que deseja fazer?\n 1.Inserir elemento\n 2.Somar elementos da lista\n 3.Contar elemento repetido\n 4.Remover elemento\n 5.Imprimir elementos\n 6.Sair\n");
 		scanf("%d", &opcao);
 		
 		if (opcao==1)//Inserir elemento
 		{
 			printf("Qual elemento deseja inserir?\n");
-			scanf("%d", &elementoInserir);
-			l= InserirFinal(l, elementoInserir);
-			printf("Elemento %d foi inserido.\n\n", elementoInserir);
+			scanf("%d", &elemento);
+			l= InserirFinal(l, elemento);
+			printf("Elemento %d inserido.\n\n", elemento);
 		}
 		else if(opcao==2)//somar elementos da lista
 		{
@@ -65,18 +78,20 @@ int main()
 		}
 		else if(opcao==3)//contar elementos repetidos
 		{
-
+			printf("Qual elemento você deseja verificar? \n");
+			scanf("%d",&elemento);
+			repetido = listaRepetido(l,0,elemento);
+			printf("O elemento %d aparece %d vezes na lista.\n\n", elemento, repetido);
 		}
 		else if (opcao==4)//remover elemento da lista
 		{
 			
 		}
-		else if(opcao==5) //imprimir elementos
+		else if(opcao==5)//imprimir elementos
 		{
 			
 		}
 	}
-		printf("O usuário saiu\n");
-		
-  return 0;
+		printf("O usuário saiu!\n");
+	return 0;
 }
