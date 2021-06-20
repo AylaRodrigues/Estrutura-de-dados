@@ -22,28 +22,46 @@ lista *InserirFinal(lista *l, int x)
 	}
 	else
 	l->prox=InserirFinal(l->prox,x);
-	return 1;
+	return l;
+}
+
+int SomarLista(lista *l, int ct){
+	if(l != NULL){
+		ct = ct+ l->info;
+		ct = SomarLista(l->prox, ct);
+	}
+	
+	return ct;
 }
 
 int main()
 {
-	int opcao;
-	int l;
-	int elementoInserir;
+	setlocale(LC_ALL, "");
 	
-	printf("O que deseja fazer?\n 1.Inserir elemento\n 2.Somar elementos da lista\n 3.Contar elementos repetidos\n 4.Remover elemento\n 5.Imprimir elementos\n 6.Sair\n");
-	scanf("%d", &opcao);
+	int opcao = 0;
+	int elementoInserir, somaLista;
+	struct lista *l = NULL; //cria a lista
+	
 	while(opcao=!6)
 	{
+		printf("O que deseja fazer?\n 1.Inserir elemento\n 2.Somar elementos da lista\n 3.Contar elementos repetidos\n 4.Remover elemento\n 5.Imprimir elementos\n 6.Sair\n");
+		scanf("%d", &opcao);
+		
 		if (opcao==1)//Inserir elemento
 		{
 			printf("Qual elemento deseja inserir?\n");
 			scanf("%d", &elementoInserir);
 			l= InserirFinal(l, elementoInserir);
+			printf("Elemento %d foi inserido.\n\n", elementoInserir);
 		}
 		else if(opcao==2)//somar elementos da lista
 		{
-
+			somaLista = SomarLista(l, 0);
+			if(somaLista!=NULL){
+				printf("A Soma dos elementos da lista é: %d\n\n", somaLista);
+			}else{
+				printf("Ainda não há elementos na lista.\n\n");
+			}
 		}
 		else if(opcao==3)//contar elementos repetidos
 		{
@@ -53,11 +71,12 @@ int main()
 		{
 			
 		}
-		else//quando a opcao for 5, imprimir elementos
+		else if(opcao==5) //imprimir elementos
 		{
 			
 		}
 	}
+		printf("O usuário saiu\n");
 		
   return 0;
 }
