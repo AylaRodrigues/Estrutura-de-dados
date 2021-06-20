@@ -46,6 +46,17 @@ int listaRepetido(lista *l, int ct, int elemento){
 	return ct; 
 }
 
+lista *removerElemento(lista *l, int elemento){
+	
+}
+
+void imprimirLista(lista *l){
+	if(l != NULL) {
+		printf(" %d -",l->info);
+		imprimirLista(l->prox);
+	}
+}
+
 int main()
 {
 	setlocale(LC_ALL, "");
@@ -85,11 +96,19 @@ int main()
 		}
 		else if (opcao==4)//remover elemento da lista
 		{
-			
+			if(l == NULL) printf("Ainda não há elementos na lista.\n\n");
+			else{
+				printf("Qual elemento você deseja remover?\n");
+				scanf("%d",&elemento);
+				l = removerElemento(l, elemento);
+				printf("O elemento %d foi removido.\n\n", elemento);
+			}
 		}
 		else if(opcao==5)//imprimir elementos
 		{
-			
+			printf("Lista:");
+			imprimirLista(l);
+			printf("\n\n");
 		}
 	}
 		printf("O usuário saiu!\n");
