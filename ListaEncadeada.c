@@ -29,12 +29,12 @@ lista *InserirFinal(lista *l, int x)
 
 void SomarLista(lista *l, int ct){
 	if(l == NULL){
-		printf("\nAinda n„o h· elementos na lista.\n\n");
+		printf("\nAinda n√£o h√° elementos na lista.\n\n");
 	}else{
 		ct = ct+ l->info;
 		if(l->prox != NULL) SomarLista(l->prox, ct);
 		else{
-			printf("\nA Soma dos elementos da lista È: %d\n\n", ct);
+			printf("\nA Soma dos elementos da lista √©: %d\n\n", ct);
 			return;
 		}
 	}			
@@ -42,7 +42,7 @@ void SomarLista(lista *l, int ct){
 
 void listaRepetido(lista *l, int ct, int elemento){
 	if(l == NULL){
-		printf("\nAinda n„o h· elementos na lista.\n\n");
+		printf("\nAinda n√£o h√° elementos na lista.\n\n");
 	}else{
 		if(l->info == elemento){
 			ct++;
@@ -82,7 +82,7 @@ void removerElemento(struct lista **l, int elemento){
     }
     
 void imprimirLista(lista *l){
-	if(l == NULL) printf("\nAinda n„o h· elementos na lista.\n\n");
+	if(l == NULL) printf("\nAinda n√£o h√° elementos na lista.\n\n");
 	else{
 		printf(" (%d) -",l->info);
 		if(l->prox != NULL) imprimirLista(l->prox);
@@ -116,16 +116,16 @@ int main()
 		}
 		else if(opcao==3)//contar elementos repetidos
 		{
-			if(l == NULL) printf("\nAinda n„o h· elementos na lista.\n\n");
+			if(l == NULL) printf("\nAinda n√£o h√° elementos na lista.\n\n");
 			else{
-				printf("Qual elemento vocÍ deseja verificar? \n");
+				printf("Qual elemento voc√™ deseja verificar? \n");
 				scanf("%d",&elemento);
 				listaRepetido(l,0,elemento);
 			}
 		}
-		else if (opcao==4)//remover elemento da lista
+		else if (opcao==4)//remover elemento da lista (admitir que o elemento que ser√° removido √© v√°lido)
 		{
-				printf("\nQual elemento vocÍ deseja remover?\n");
+				printf("\nQual elemento voc√™ deseja remover?\n");
 				scanf("%d",&elemento);
 				printf("\n");
 				removerElemento(&l, elemento);
@@ -137,6 +137,6 @@ int main()
 				printf("\n\n");
 		}
 	}
-		printf("\nO usu·rio saiu!\n");
+		printf("\nO usu√°rio saiu!\n");
 	return 0;
 }
