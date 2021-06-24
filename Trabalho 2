@@ -1,1 +1,11 @@
+//Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
+//Questao 1- Listas recursivas
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main()
+{
+  return 0;
+}
