@@ -38,7 +38,7 @@ int AlturaArvore(arvore *a)
 	}
 	else
 	{
-		int he,hd;
+		int he, hd;
 		he=AlturaArvore(a->esq);
 		hd=AlturaArvore(a->dir);
 
@@ -97,7 +97,7 @@ void ImprimirPosOrdem(arvore *a)//impressao pos ordem
 	}
 }		
 
-void ImprimirEmLargura(arvore *a, int nivel)//impressao pos ordem
+/*void ImprimirEmLargura(arvore *a, int nivel)//impressao pos ordem
 {
 	if (a != NULL)
 	{
@@ -107,7 +107,7 @@ void ImprimirEmLargura(arvore *a, int nivel)//impressao pos ordem
 		printf("%d\n", a->info);
 	}
 }	
-
+*/
 int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 {
 	if (a==NULL)
@@ -140,21 +140,14 @@ arvore *Destruir(arvore *a)//liberar a memoria da arvore e destrui-la
 	return NULL;
 }
 
-int ContarElementos(arvore *a, int ct)//contar quantos elementos tem na arvore, tem que colocar recursiva
+int ContarElementos(arvore *a)//contar quantos elementos tem na arvore, tem que colocar recursiva
 {
-	if (a!= NULL)
+	if (a == NULL)
 	{
-		if (a->esq != NULL)
-		{
-			ct++;
-		}
-
-		if (a->dir != NULL)
-		{
-			ct++;
-		}
-	}
-	printf("A arvore tem %d elementos", ct);
+		return 0;
+	} else {
+		return ContarElementos(a->esq) + ContarElementos(a->dir) + 1;
+	}	
 }
 
 int main() {
@@ -217,8 +210,9 @@ int main() {
 		}
 		else if (opcao==4)//contar quant. elementos
 		{
-			int ct=0;
-			ct = ContarElementos(a, ct);
+			int numElemento;
+			numElemento = ContarElementos(a);
+			printf("%d\n\n",numElemento);
 		}
 		else if(opcao==5)//imprimir nos 
 		{
