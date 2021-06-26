@@ -31,42 +31,38 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	}
 }
 
-void ImprimirPreOrdem(arvore *a)//pre-ordem
+void ImprimirArvore(arvore *a)//pre-ordem
 {
+	int escolha=0;
 	if(a != NULL) {
-		printf("%d", a->info);
-		ImprimirPreOrdem(a->esq);
-		ImprimirPreOrdem(a->dir);
-	}	
-}
 
-void ImprimirEmOrdem(arvore *a)//pre-ordem
-{
-	if(a != NULL) {
-		
-		ImprimirPreOrdem(a->esq);
-		printf("%d", a->info);
-		ImprimirPreOrdem(a->dir);
-	}	
-}
+		printf("Como deseja que seja feita a impressao da arvore?\n 1.Pre-Ordem\n 2.Em-Ordem\n 3.Pos-Ordem\n 4.Em largura\n");
+		scanf("%d", &escolha);
 
-void ImprimirPosOrdem(arvore *a)//pre-ordem
-{
-	if(a != NULL) {
-		
-		ImprimirPreOrdem(a->esq);
-		ImprimirPreOrdem(a->dir);
-		printf("%d", a->info);
-	}	
-}
-
-void ImprimirEmLargura(arvore *a)//pre-ordem
-{
-	if(a != NULL) {
-		
-		ImprimirPreOrdem(a->esq);
-		ImprimirPreOrdem(a->dir);
-		printf("%d", a->info);
+		if (escolha ==1)
+		{
+			printf("%d", a->info);
+			ImprimirArvore(a->esq);
+			ImprimirArvore(a->dir);
+		}
+		else if (escolha==2)
+		{
+			ImprimirArvore(a->esq);
+			printf("%d", a->info);
+			ImprimirArvore(a->dir);
+		}
+		else if (escolha==3)
+		{
+			ImprimirArvore(a->esq);
+			ImprimirArvore(a->dir);
+			printf("%d", a->info);
+		}
+		else
+		{
+			ImprimirArvore(a->esq);
+			ImprimirArvore(a->dir);
+			printf("%d", a->info);
+		}
 	}	
 }
 
@@ -108,23 +104,7 @@ int main() {
 		}
 		else if(opcao==2)//impressao arvore
 		{
-			int escolha=0;
-
-			printf("Como deseja que seja feita a impressao da arvore?\n 1.Pre-Ordem\n 2.Em-Ordem\n 3.Pos-Ordem\n 4.Em largura\n");
-			scanf("%d", &escolha);
-			if (escolha = 1)//pre-ordem
-			{
-				ImprimirPreOrdem(a);
-			}
-			else if (escolha = 2)//em-ordem
-			{
-				ImprimirEmOrdem(a);
-			}
-			else if (escolha = 3)//pos-ordem
-			{
-				ImprimirPosOrdem(a);
-			}
-			ImprimirEmLargura(a);
+			ImprimirArvore(a);
 			
 		}
 		else if(opcao==3)//verificar existencia
