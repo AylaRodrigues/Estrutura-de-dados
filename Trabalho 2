@@ -19,7 +19,7 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	fscanf(arq, "%s", &num);
 	if(num == -1) {
 		fscanf(arq, "%c", &c);
-		NULL;
+		return NULL;
 	} else {
 		a = (arvore*)malloc(sizeof(arvore));
 		a->info = num;
