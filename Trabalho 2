@@ -33,7 +33,7 @@ arvore *LerArvore(FILE *arq, arvore *a){
 
 void Imprimir(arvore *a) {
 	if(a != NULL) {
-		printf("%d", a->info);
+		printf("%d\n", a->info);
 		Imprimir(a->esq);
 		Imprimir(a->dir);
 	}	
