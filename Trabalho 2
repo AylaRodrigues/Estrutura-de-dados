@@ -38,6 +38,7 @@ int AlturaArvore(arvore *a)
 	}
 	else
 	{
+		int he,hd;
 		he=AlturaArvore(a->esq);
 		hd=AlturaArvore(a->dir);
 
