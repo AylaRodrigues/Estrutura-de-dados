@@ -105,6 +105,17 @@ int Existe(arvore *a, int x)
 	}
 }
 
+arvore *Destruir(arvore*a)
+{
+	if (a!=NULL)
+	{
+		a->esq = Destruir(a->esq);
+		a->dir = Destruir(a->dir);
+		free(a);
+	}
+	return NULL;
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
@@ -168,6 +179,7 @@ int main() {
 		}
 
 	}
+		a = Destruir(a);
 		printf("O usuário saiu!\n");
 		fclose(arq);
 	return 0;
