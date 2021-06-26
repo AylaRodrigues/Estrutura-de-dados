@@ -116,6 +116,23 @@ arvore *Destruir(arvore*a)
 	return NULL;
 }
 
+int ContarElementos(arvore *a, int ct)
+{
+	if (a!= NULL)
+	{
+		if (a->esq != NULL)
+		{
+			ct++;
+		}
+
+		if (a->dir != NULL)
+		{
+			ct++;
+		}
+	}
+	printf("A arvore tem %d elementos", ct);
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
@@ -142,11 +159,12 @@ int main() {
 		}
 		else if(opcao==3)//verificar existencia
 		{
-			int existencia;
+			int x;
 			printf("Qual o numero que deseja verificar na arvore?\n");
 			scanf("%d", &x);
-			existencia =Existe(a, x);
-			if (existencia==1)
+			x = Existe(a, x);
+
+			if (x==1)
 			{
 				printf("Esse numero existe na arvore")
 			}
@@ -157,6 +175,8 @@ int main() {
 		}
 		else if (opcao==4)//contar quant. elementos
 		{
+			int ct;
+			ct = ContarElementos(a, ct);
 		}
 		else if(opcao==5)//imprimir nos 
 		{
@@ -170,12 +190,9 @@ int main() {
 		{
 			
 		}
-		else if(opcao==8)//imprimir nivel
+		else if(opcao==8)//imprimir nivel de um no
 		{
-			int n;
-			printf("Qual o nivel que deseja imprimir?\n");
-			scanf("%d", &n);
-			ImprimirNivel(a, 0, n);
+			
 		}
 
 	}
