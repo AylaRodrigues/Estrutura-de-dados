@@ -51,8 +51,8 @@ void ImprimirPreOrdem(arvore *a)//impressao da arvore
 	if(a != NULL) 
 	{
 		printf("%d", a->info);
-		ImprimirArvore(a->esq);
-		ImprimirArvore(a->dir);
+		ImprimirPreOrdem(a->esq);
+		ImprimirPreOrdem(a->dir);
 	}	
 }
 
@@ -60,9 +60,9 @@ void ImprimirEmOrdem(arvore *a)
 {
 	if (a != NULL)
 	{
-		ImprimirArvore(a->esq);
+		ImprimirEmOrdem(a->esq);
 		printf("%d", a->info);
-		ImprimirArvore(a->dir);
+		ImprimirEmOrdem(a->dir);
 	}
 }				
 		
@@ -70,9 +70,9 @@ void ImprimirPosOrdem(arvore *a)
 {
 	if (a != NULL)
 	{
-		ImprimirArvore(a->esq);
-			ImprimirArvore(a->dir);
-			printf("%d", a->info);
+		ImprimirPosOrdem(a->esq);
+		ImprimirPosOrdem(a->dir);
+		printf("%d", a->info);
 	}
 }		
 
@@ -211,5 +211,3 @@ int main() {
 		fclose(arq);
 	return 0;
 }
-
-
