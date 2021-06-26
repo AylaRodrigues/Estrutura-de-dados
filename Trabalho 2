@@ -46,7 +46,7 @@ void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
 	}
 }
 
-void ImprimirPreOrdem(arvore *a)//impressao da arvore
+void ImprimirPreOrdem(arvore *a)//impressao pre ordem
 {
 	if(a != NULL) 
 	{
@@ -56,7 +56,7 @@ void ImprimirPreOrdem(arvore *a)//impressao da arvore
 	}	
 }
 
-void ImprimirEmOrdem(arvore *a)
+void ImprimirEmOrdem(arvore *a)//impressao em ordem
 {
 	if (a != NULL)
 	{
@@ -66,7 +66,7 @@ void ImprimirEmOrdem(arvore *a)
 	}
 }				
 		
-void ImprimirPosOrdem(arvore *a)
+void ImprimirPosOrdem(arvore *a)//impressao pos ordem
 {
 	if (a != NULL)
 	{
@@ -76,7 +76,7 @@ void ImprimirPosOrdem(arvore *a)
 	}
 }		
 
-int Existe(arvore *a, int x)
+int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 {
 	if (a==NULL)
 	{
@@ -97,7 +97,7 @@ int Existe(arvore *a, int x)
 	}
 }
 
-arvore *Destruir(arvore*a)
+arvore *Destruir(arvore *a)//liberar a memoria da arvore e destrui-la
 {
 	if (a!=NULL)
 	{
@@ -108,7 +108,7 @@ arvore *Destruir(arvore*a)
 	return NULL;
 }
 
-int ContarElementos(arvore *a, int ct)
+int ContarElementos(arvore *a, int ct)//contar quantos elementos tem na arvore
 {
 	if (a!= NULL)
 	{
