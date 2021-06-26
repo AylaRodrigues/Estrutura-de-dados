@@ -50,7 +50,7 @@ void ImprimirPreOrdem(arvore *a)//impressao da arvore
 {
 	if(a != NULL) 
 	{
-		printf("%d", a->info);
+		printf("%d\n", a->info);
 		ImprimirPreOrdem(a->esq);
 		ImprimirPreOrdem(a->dir);
 	}	
@@ -61,7 +61,7 @@ void ImprimirEmOrdem(arvore *a)
 	if (a != NULL)
 	{
 		ImprimirEmOrdem(a->esq);
-		printf("%d", a->info);
+		printf("%d\n", a->info);
 		ImprimirEmOrdem(a->dir);
 	}
 }				
@@ -72,7 +72,7 @@ void ImprimirPosOrdem(arvore *a)
 	{
 		ImprimirPosOrdem(a->esq);
 		ImprimirPosOrdem(a->dir);
-		printf("%d", a->info);
+		printf("%d\n", a->info);
 	}
 }		
 
