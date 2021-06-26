@@ -16,14 +16,14 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	int num;
 	
 	fscanf(arq, "%c", &c);
-	fscanf(arq, "%s", &num);
+	fscanf(arq, "%d", &num);
+	
 	if(num == -1) {
 		fscanf(arq, "%c", &c);
 		return NULL;
 	} else {
 		a = (arvore*)malloc(sizeof(arvore));
 		a->info = num;
-		printf("%d",a->info);
 		a->esq = LerArvore(arq, a);
 		a->dir = LerArvore(arq, a);
 		fscanf(arq, "%c", &c);
