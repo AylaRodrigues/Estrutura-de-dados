@@ -32,6 +32,27 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	}
 }
 
+int AlturaArvore(arvore *a)
+{
+	if (a == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		int he, hd;
+		he=AlturaArvore(a->esq);
+		hd=AlturaArvore(a->dir);
+
+		if (he>hd)
+		{
+			return he+1;
+		}
+		else
+			return hd+1;
+	}
+}
+
 void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
 {
 	if (a!= NULL)
