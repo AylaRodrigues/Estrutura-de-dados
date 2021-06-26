@@ -16,14 +16,13 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	int num;
 	
 	fscanf(arq, "%c", &c);
-	fscanf(arq, "%s", &num);
+	fscanf(arq, "%d", &num);
 	if(num == -1) {
 		fscanf(arq, "%c", &c);
 		return NULL;
 	} else {
 		a = (arvore*)malloc(sizeof(arvore));
 		a->info = num;
-		printf("%d",a->info);
 		a->esq = LerArvore(arq, a);
 		a->dir = LerArvore(arq, a);
 		fscanf(arq, "%c", &c);
@@ -37,7 +36,7 @@ void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
 	{
 		if (cont==nivel)
 		{
-			printf(%d, a->info);
+			printf("%d", a->info);
 		}
 		else
 		{
@@ -47,42 +46,35 @@ void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
 	}
 }
 
-void ImprimirArvore(arvore *a)//impressao da arvore
+void ImprimirPreOrdem(arvore *a)//impressao da arvore
 {
-	int escolha=0;
-	if(a != NULL) {
-
-		printf("Como deseja que seja feita a impressao da arvore?\n 1.Pre-Ordem\n 2.Em-Ordem\n 3.Pos-Ordem\n 4.Em largura\n");
-		scanf("%d", &escolha);
-
-		if (escolha ==1)
-		{
-			printf("%d", a->info);
-			ImprimirArvore(a->esq);
-			ImprimirArvore(a->dir);
-		}
-		else if (escolha==2)
-		{
-			ImprimirArvore(a->esq);
-			printf("%d", a->info);
-			ImprimirArvore(a->dir);
-		}
-		else if (escolha==3)
-		{
-			ImprimirArvore(a->esq);
-			ImprimirArvore(a->dir);
-			printf("%d", a->info);
-		}
-		else//acho que nao ta 100%
-		{
-			for (int n = 0; n < count; ++n)
-			{
-				ImprimirNivel(a, 0, n)
-			}
-			
-		}
+	if(a != NULL) 
+	{
+		printf("%d", a->info);
+		ImprimirArvore(a->esq);
+		ImprimirArvore(a->dir);
 	}	
 }
+
+void ImprimirEmOrdem(arvore *a)
+{
+	if (a != NULL)
+	{
+		ImprimirArvore(a->esq);
+		printf("%d", a->info);
+		ImprimirArvore(a->dir);
+	}
+}				
+		
+void ImprimirPosOrdem(arvore *a)
+{
+	if (a != NULL)
+	{
+		ImprimirArvore(a->esq);
+			ImprimirArvore(a->dir);
+			printf("%d", a->info);
+	}
+}		
 
 int Existe(arvore *a, int x)
 {
@@ -154,7 +146,25 @@ int main() {
 		}
 		else if(opcao==2)//impressao arvore
 		{
-			ImprimirArvore(a);
+			int escolha=0;
+			printf("Como deseja que seja feita a impressao da arvore?\n 1.Pre-Ordem\n 2.Em-Ordem\n 3.Pos-Ordem\n 4.Em largura\n");
+			scanf("%d", &escolha);
+			if (escolha==1)
+			{
+				ImprimirPreOrdem(a);
+			}
+			else if (escolha==2)
+			{
+				ImprimirEmOrdem(a);
+			}
+			else if (escolha ==3)
+			{
+				ImprimirPosOrdem(a);
+			}
+			else
+			{
+				
+			}
 			
 		}
 		else if(opcao==3)//verificar existencia
@@ -166,11 +176,11 @@ int main() {
 
 			if (x==1)
 			{
-				printf("Esse numero existe na arvore")
+				printf("Esse numero existe na arvore");
 			}
 			else
 			{
-				printf("Esse numero nao existe na arvore")
+				printf("Esse numero nao existe na arvore");
 			}
 		}
 		else if (opcao==4)//contar quant. elementos
@@ -201,4 +211,5 @@ int main() {
 		fclose(arq);
 	return 0;
 }
+
 
