@@ -1,11 +1,54 @@
-//Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
-//Questao 1- Listas recursivas
+// Grupo: Ayla Rodrigues, Douglas Mareli, Sofia Kitave
+// Exercicio 2 - Estrutura de dados
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 
-int main()
-{
-  return 0;
+typedef struct arvore{
+	int info;
+	struct arvore *esq;
+	struct arvore *dir;
+}arvore;
+
+arvore *LerArvore(FILE *arq, arvore *a){
+	char c;
+	int num;
+	
+	fscanf(arq, "%c", &c);
+	fscanf(arq, "%s", &num);
+	if(num == -1) {
+		fscanf(arq, "%c", &c);
+		NULL;
+	} else {
+		a = (arvore*)malloc(sizeof(arvore));
+		a->info = num;
+		printf("%d",a->info);
+		a->esq = LerArvore(arq, a);
+		a->dir = LerArvore(arq, a);
+		fscanf(arq, "%c", &c);
+		return a;
+	}
+}
+
+void Imprimir(arvore *a) {
+	if(a != NULL) {
+		printf("%d", a->info);
+		Imprimir(a->esq);
+		Imprimir(a->dir);
+	}	
+}
+
+int main() {
+	setlocale(LC_ALL, "");
+	
+	FILE *arq;
+	arvore *a;
+	
+	arq = fopen("arvore.txt", "rt");
+	a = LerArvore(arq, a);
+	fclose(arq);
+	
+	Imprimir(a);
+	return 0;
 }
