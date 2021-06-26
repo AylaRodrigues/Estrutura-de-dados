@@ -31,7 +31,23 @@ arvore *LerArvore(FILE *arq, arvore *a){
 	}
 }
 
-void ImprimirArvore(arvore *a)//pre-ordem
+void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
+{
+	if (a!= NULL)
+	{
+		if (cont==nivel)
+		{
+			printf(%d, a->info);
+		}
+		else
+		{
+			ImprimirNivel(a-> esq, cont+1, nivel);
+			ImprimirNivel(a-> dir, cont+1, nivel);
+		}
+	}
+}
+
+void ImprimirArvore(arvore *a)//impressao da arvore
 {
 	int escolha=0;
 	if(a != NULL) {
@@ -57,31 +73,37 @@ void ImprimirArvore(arvore *a)//pre-ordem
 			ImprimirArvore(a->dir);
 			printf("%d", a->info);
 		}
-		else
+		else//acho que nao ta 100%
 		{
-			ImprimirArvore(a->esq);
-			ImprimirArvore(a->dir);
-			printf("%d", a->info);
+			for (int n = 0; n < count; ++n)
+			{
+				ImprimirNivel(a, 0, n)
+			}
+			
 		}
 	}	
 }
 
-void ImprimirNivel(arvore *a, int cont, int nivel)
+int Existe(arvore *a, int x)
 {
-	if (a!= NULL)
+	if (a==NULL)
 	{
-		if (cont==nivel)
+		return 0;
+	}
+	else if (a->info ==x)
+	{
+		return 1;
+	}
+	else
+	{
+		int ret = Existe(a->esq, x);
+		if (ret ==1)
 		{
-			printf(%d, a->info);
-		}
-		else
-		{
-			ImprimirNivel(a-> esq, cont+1, nivel);
-			ImprimirNivel(a-> dir, cont+1, nivel);
+			return 1;
+			return Existe(a->dir, x);
 		}
 	}
 }
-
 
 int main() {
 	setlocale(LC_ALL, "");
@@ -109,7 +131,18 @@ int main() {
 		}
 		else if(opcao==3)//verificar existencia
 		{
-			
+			int existencia;
+			printf("Qual o numero que deseja verificar na arvore?\n");
+			scanf("%d", &x);
+			existencia =Existe(a, x);
+			if (existencia==1)
+			{
+				printf("Esse numero existe na arvore")
+			}
+			else
+			{
+				printf("Esse numero nao existe na arvore")
+			}
 		}
 		else if (opcao==4)//contar quant. elementos
 		{
