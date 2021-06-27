@@ -282,7 +282,7 @@ int main() {
 			int numElementos = ContarElementos(a);
 
 			printf("----------\n");
-      printf("A arvore tem %d elementos\n\n", numElementos);
+      printf("A árvore tem %d elementos\n\n", numElementos);
         }
         else if(opcao==5)//imprimir nos folhas 
         {
@@ -293,8 +293,9 @@ int main() {
 		else if(opcao==6)//verificar balanceamento
 		{
 			int balanc = VerificaBalanceamento(a);
-			if(balanc ==0) {
-<
+			if(balanc ==0) 
+			{
+
 				printf("----------\n");
 				printf("A árvore está balanceada.\n\n");
 			}else {
