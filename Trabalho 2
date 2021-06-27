@@ -200,7 +200,7 @@ int main() {
 
 	while(opcao!=9)
 	{
-		printf("O que deseja fazer?\n 1.Ler arvore\n 2.Imprimir arvore\n 3.Verificar existencia de um elemento\n 4.Contar numero de elementos\n 5.Imprimir os nos da arvore\n 6.Verificar balanceamento da arvore\n 7.Verificar se a arvore eh cheia\n 8.Imprimir nivel de um no\n 9.sair\n");
+		printf("O que deseja fazer?\n 1.Ler árvore\n 2.Imprimir árvore\n 3.Verificar existência de um elemento\n 4.Contar número de elementos\n 5.Imprimir os nós da árvore\n 6.Verificar balanceamento da árvore\n 7.Verificar se a árvore é cheia\n 8.Imprimir nivel de um nó\n 9.Sair\n");
 		scanf("%d", &opcao);
 		printf("\n");
 		
