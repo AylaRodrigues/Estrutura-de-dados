@@ -150,25 +150,14 @@ arvore *Destruir(arvore *a)//liberar a memoria da arvore e destrui-la
 	return NULL;
 }
 
-int ContarElementos(arvore *a)//contar quantos elementos tem na arvore
+int ContarElementos(arvore *a)//contar quantos elementos tem na arvore, tem que colocar recursiva
 {
-	if (a!= NULL)
-	{
-		if(CT==0){
-			CT++;
-		}
-		if (a->esq != NULL)
-		{
-			CT++;
-			ContarElementos(a->esq);
-		}
-
-		if (a->dir != NULL)
-		{
-			CT++;
-			ContarElementos(a->dir);
-		}
-	}
+    if (a == NULL)
+    {
+        return 0;
+    } else {
+        return ContarElementos(a->esq) + ContarElementos(a->dir) + 1;
+    }
 }
 
 int VerificaBalanceamento(arvore *a){
