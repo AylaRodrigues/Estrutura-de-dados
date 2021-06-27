@@ -131,6 +131,18 @@ void ImprimirNivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
 	}
 }		
 
+void NivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
+ {
+	if(a != NULL) {
+		if(a->info == no) {
+			printf("%d\n",nivel);
+		} else {
+			NivelNo(a->esq, no ,nivel + 1);
+			NivelNo(a->dir, no, nivel + 1);
+		}
+	}
+}	
+
 int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 {
 	if (a==NULL)
@@ -299,8 +311,8 @@ int main() {
 		{
 			int no;
 			printf("De qual nó você deseja imprimir o nível?\n");
-			scanf("%d",no);
-			ImprimirNivelNo(a,no,0);
+			scanf("%d",&no);
+			NivelNo(a,no,0);
 		}
 
 		printf("----------\n");
