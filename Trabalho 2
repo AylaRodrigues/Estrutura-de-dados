@@ -128,13 +128,14 @@ int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 	}
 }
 
-void ImprimirNosFolhas(arvore *a)//impressao em ordem
-{
-	if (a != NULL)
-	{
-		ImprimirNosFolhas(a->esq);
-		printf("%d\n", a->info);
-		ImprimirEmOrdem(a->dir);
+void ImprimirFolhas(arvore *a) {
+	if(a != NULL){
+		if(a->esq == NULL && a->dir == NULL) {
+			printf("%d\n",a->info);
+		}
+		
+		ImprimirFolhas(a->esq);
+		ImprimirFolhas(a->dir);
 	}
 }
 
@@ -274,7 +275,7 @@ int main() {
 		}
 		else if(opcao==5)//imprimir nos folhas 
 		{
-			
+			ImprimirFolhas(a);
 		}
 		else if(opcao==6)//verificar balanceamento
 		{
