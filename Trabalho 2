@@ -118,14 +118,14 @@ void ImprimirFolhas(arvore *a) {
 	}
 }
 
-void ImprimirNivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
+void NivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
  {
 	if(a != NULL) {
 		if(a->info == no) {
-			printf("%Nivel: %d\n",nivel);
+			printf("%d\n",nivel);
 		} else {
-			ImprimirNivelNo(a->esq, no ,nivel + 1);
-			ImprimirNivelNo(a->dir, no, nivel + 1);
+			NivelNo(a->esq, no ,nivel + 1);
+			NivelNo(a->dir, no, nivel + 1);
 		}
 	}
 }		
@@ -295,7 +295,7 @@ int main() {
 		{
 			int no;
 			printf("De qual nó você deseja imprimir o nível?\n");
-			scanf("%d",no);
+			scanf("%d",&no);
 			ImprimirNivelNo(a,no,0);
 		}
 	}
