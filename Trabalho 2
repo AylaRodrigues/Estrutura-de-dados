@@ -203,9 +203,9 @@ void VerificarCheia(arvore *a) {
 	int h = AlturaArvore(a);
 
 	if( numElem == pow(2, h)- 1) {
-		printf("\nEssa árvore está cheia.\n\n");
+		printf("\nEssa Ã¡rvore estÃ¡ cheia.\n\n");
 	} else {
-		printf("\nEssa árvore não está cheia.\n\n");
+		printf("\nEssa Ã¡rvore nÃ£o estÃ¡ cheia.\n\n");
 	}
 }
 
@@ -222,7 +222,7 @@ int main() {
 	while(opcao!=9)
 	{
 
-		printf("O que deseja fazer?\n 1.Ler árvore\n 2.Imprimir árvore\n 3.Verificar existência de um elemento\n 4.Contar número de elementos\n 5.Imprimir os nós-folha da árvore\n 6.Verificar balanceamento da árvore\n 7.Verificar se a árvore é cheia\n 8.Imprimir nivel de um nó\n 9.Sair\n\n>");
+		printf("O que deseja fazer?\n 1.Ler Ã¡rvore\n 2.Imprimir Ã¡rvore\n 3.Verificar existÃªncia de um elemento\n 4.Contar nÃºmero de elementos\n 5.Imprimir os nÃ³s-folha da Ã¡rvore\n 6.Verificar balanceamento da Ã¡rvore\n 7.Verificar se a Ã¡rvore Ã© cheia\n 8.Imprimir nivel de um nÃ³\n 9.Sair\n\n>");
 
 		scanf("%d", &opcao);
 		printf("\n");
@@ -235,7 +235,7 @@ int main() {
 		{
 			int escolha=0;
 
-			printf("Como deseja que seja feita a impressão da árvore?\n 1.Pré-Ordem\n 2.Em-Ordem\n 3.Pós-Ordem\n 4.Em largura\n\n>");
+			printf("Como deseja que seja feita a impressÃ£o da Ã¡rvore?\n 1.PrÃ©-Ordem\n 2.Em-Ordem\n 3.PÃ³s-Ordem\n 4.Em largura\n\n>");
 
 			scanf("%d", &escolha);
 			if (escolha==1){
@@ -262,19 +262,19 @@ int main() {
 		else if(opcao==3)//verificar existencia
 		{
 			int x;
-			printf("Qual o número que deseja verificar na árvore?\n>");
+			printf("Qual o nÃºmero que deseja verificar na Ã¡rvore?\n>");
 			scanf("%d", &x);
 			x = Existe(a, x);
 
 			if (x==1)
 			{
 				printf("----------\n");
-				printf("Esse numero existe na árvore\n");
+				printf("Esse numero existe na Ã¡rvore\n");
 			}
 			else
 			{
 				printf("----------\n");
-				printf("Esse número não existe na árvore\n");
+				printf("Esse nÃºmero nÃ£o existe na Ã¡rvore\n");
 			}
 		}
 		else if (opcao==4)//contar quant. elementos
@@ -282,7 +282,7 @@ int main() {
 			int numElementos = ContarElementos(a);
 
 			printf("----------\n");
-      printf("A árvore tem %d elementos\n\n", numElementos);
+      printf("A Ã¡rvore tem %d elementos\n\n", numElementos);
         }
         else if(opcao==5)//imprimir nos folhas 
         {
@@ -297,32 +297,31 @@ int main() {
 			{
 
 				printf("----------\n");
-				printf("A árvore está balanceada.\n\n");
+				printf("A Ã¡rvore estÃ¡ balanceada.\n\n");
 			}else {
 				printf("----------\n");
-				printf("A árvore não está balanceada.\n\n");
+				printf("A Ã¡rvore nÃ£o estÃ¡ balanceada.\n\n");
 
 			}
 		}
-		else if(opcao==7)//verificar se é cheia
+		else if(opcao==7)//verificar se Ã© cheia
 		{
 			VerificarCheia(a);
 		}
 		else if(opcao==8)//imprimir nivel de um no
 		{
 			int no;
-			printf("De qual nó você deseja imprimir o nível?\n");
+			printf("De qual nÃ³ vocÃª deseja imprimir o nÃ­vel?\n");
 			scanf("%d",&no);
 			NivelNo(a,no,0);
 		}
 
-		printf("----------\n");
-		Sleep(5000);
+		Sleep(2500);
 		system("cls");
 
 	}
 		a = Destruir(a);
-		printf("O usuário saiu!\n");
+		printf("O usuÃ¡rio saiu!\n");
 		fclose(arq);
 	return 0;
 }
