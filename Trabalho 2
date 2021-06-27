@@ -170,6 +170,21 @@ int ContarElementos(arvore *a)//contar quantos elementos tem na arvore
 	}
 }
 
+int VerificaBalanceamento(arvore *a){
+	
+	int hEsq,hDir;
+	
+	if(a != NULL) {
+		hEsq = AlturaArvore(a->esq);
+		hDir = AlturaArvore(a->dir);
+		if(abs(hEsq - hDir) == 1 || abs(hEsq - hDir ==0)) {
+			return 0 + VerificaBalanceamento(a->esq) + VerificaBalanceamento(a->dir);
+		} else {
+			return 1;
+		}	
+	}
+}
+
 void VerificarCheia(arvore *a) {
 	int h = AlturaArvore(a);
 	
@@ -263,7 +278,12 @@ int main() {
 		}
 		else if(opcao==6)//verificar balanceamento
 		{
-			
+			int balanc = VerificaBalanceamento(a);
+			if(balanc ==0) {
+				printf("A árvore está balanceada.\n\n");
+			}else {
+				printf("A árvore não está balanceada.\n\n");
+			}
 		}
 		else if(opcao==7)//verificar se é cheia
 		{
