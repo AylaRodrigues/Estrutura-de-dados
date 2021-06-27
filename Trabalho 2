@@ -176,14 +176,16 @@ int VerificaBalanceamento(arvore *a){
 }
 
 void VerificarCheia(arvore *a) {
+	int numElem = ContarElementos(a);
 	int h = AlturaArvore(a);
-	
-	if( h == pow(h, 2) - 1) {
+
+	if( numElem == pow(2, h)- 1) {
 		printf("\nEssa árvore está cheia.\n\n");
 	} else {
 		printf("\nEssa árvore não está cheia.\n\n");
 	}
 }
+
 
 int main() {
 	setlocale(LC_ALL, "");
