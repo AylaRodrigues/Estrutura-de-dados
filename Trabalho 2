@@ -296,7 +296,7 @@ int main() {
 			int no;
 			printf("De qual nó você deseja imprimir o nível?\n");
 			scanf("%d",&no);
-			ImprimirNivelNo(a,no,0);
+			NivelNo(a,no,0);
 		}
 	}
 		a = Destruir(a);
