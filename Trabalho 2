@@ -58,7 +58,7 @@ void ImprimirNivel(arvore *a, int cont, int nivel)//impressao de nivel do no
 	{
 		if (cont==nivel)
 		{
-			printf("%d", a->info);
+			printf("%d\n", a->info);
 		}
 		else
 		{
@@ -105,6 +105,29 @@ void ImprimirPosOrdem(arvore *a)//impressao pos ordem
 		ImprimirPosOrdem(a->dir);
 		printf("%d\n", a->info);
 	}
+}
+
+void ImprimirFolhas(arvore *a) {
+	if(a != NULL){
+		if(a->esq == NULL && a->dir == NULL) {
+			printf("%d\n",a->info);
+		}
+		
+		ImprimirFolhas(a->esq);
+		ImprimirFolhas(a->dir);
+	}
+}
+
+void ImprimirNivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
+ {
+	if(a != NULL) {
+		if(a->info == no) {
+			printf("%Nivel: %d\n",nivel);
+		} else {
+			ImprimirNivelNo(a->esq, no ,nivel + 1);
+			ImprimirNivelNo(a->dir, no, nivel + 1);
+		}
+	}
 }		
 
 int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
@@ -125,17 +148,6 @@ int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 			return 1;
 			return Existe(a->dir, x);
 		}
-	}
-}
-
-void ImprimirFolhas(arvore *a) {
-	if(a != NULL){
-		if(a->esq == NULL && a->dir == NULL) {
-			printf("%d\n",a->info);
-		}
-		
-		ImprimirFolhas(a->esq);
-		ImprimirFolhas(a->dir);
 	}
 }
 
@@ -186,7 +198,6 @@ void VerificarCheia(arvore *a) {
 	}
 }
 
-
 int main() {
 	setlocale(LC_ALL, "");
 	
@@ -199,7 +210,7 @@ int main() {
 
 	while(opcao!=9)
 	{
-		printf("O que deseja fazer?\n 1.Ler árvore\n 2.Imprimir árvore\n 3.Verificar existência de um elemento\n 4.Contar número de elementos\n 5.Imprimir os nós da árvore\n 6.Verificar balanceamento da árvore\n 7.Verificar se a árvore é cheia\n 8.Imprimir nivel de um nó\n 9.Sair\n");
+		printf("O que deseja fazer?\n 1.Ler árvore\n 2.Imprimir árvore\n 3.Verificar existência de um elemento\n 4.Contar número de elementos\n 5.Imprimir os nós-folha da árvore\n 6.Verificar balanceamento da árvore\n 7.Verificar se a árvore é cheia\n 8.Imprimir nivel de um nó\n 9.Sair\n");
 		scanf("%d", &opcao);
 		printf("\n");
 		
@@ -210,7 +221,7 @@ int main() {
 		else if(opcao==2)//impressao arvore
 		{
 			int escolha=0;
-			printf("Como deseja que seja feita a impressao da arvore?\n 1.Pre-Ordem\n 2.Em-Ordem\n 3.Pos-Ordem\n 4.Em largura\n");
+			printf("Como deseja que seja feita a impressão da árvore?\n 1.Pré-Ordem\n 2.Em-Ordem\n 3.Pós-Ordem\n 4.Em largura\n");
 			scanf("%d", &escolha);
 			if (escolha==1)
 			{
@@ -236,7 +247,7 @@ int main() {
 			else
 			{
 				printf("----------\n");
-				ImprimirEmLargura(a);
+				ImprimirEmLargura(a,0);
 				printf("----------");
 				printf("\n\n");
 			}
@@ -260,9 +271,8 @@ int main() {
 		}
 		else if (opcao==4)//contar quant. elementos
 		{
-			ContarElementos(a);
-			printf("A arvore tem %d elementos\n\n", CT);
-			CT=0;
+			int numElementos = ContarElementos(a);
+			printf("A arvore tem %d elementos\n\n", numElementos);
 		}
 		else if(opcao==5)//imprimir nos folhas 
 		{
@@ -283,9 +293,11 @@ int main() {
 		}
 		else if(opcao==8)//imprimir nivel de um no
 		{
-			
+			int no;
+			printf("De qual nó você deseja imprimir o nível?\n");
+			scanf("%d",no);
+			ImprimirNivelNo(a,no,0);
 		}
-
 	}
 		a = Destruir(a);
 		printf("O usuário saiu!\n");
