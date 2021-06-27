@@ -146,8 +146,8 @@ int Existe(arvore *a, int x)//verificar existencia de um numero x na arvore
 		if (ret ==1)
 		{
 			return 1;
-			return Existe(a->dir, x);
 		}
+		return Existe(a->dir, x);
 	}
 }
 
