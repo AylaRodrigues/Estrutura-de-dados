@@ -179,9 +179,9 @@ void VerificarCheia(arvore *a) {
 	int h = AlturaArvore(a);
 	
 	if( h == pow(h, 2) - 1) {
-		printf("\nEssa árvore está balanceada.\n\n");
+		printf("\nEssa árvore está cheia.\n\n");
 	} else {
-		printf("\nEssa árvore não está balanceada.\n\n");
+		printf("\nEssa árvore não está cheia.\n\n");
 	}
 }
 
