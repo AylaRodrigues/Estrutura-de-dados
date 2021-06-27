@@ -178,6 +178,16 @@ int ContarElementos(arvore *a)//contar quantos elementos tem na arvore
 	}
 }
 
+void VerificarCheia(arvore *a) {
+	int h = AlturaArvore(a);
+	
+	if( h == pow(h, 2) - 1) {
+		printf("\nEssa árvore está balanceada.\n\n");
+	} else {
+		printf("\nEssa árvore não está balanceada.\n\n");
+	}
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
@@ -263,9 +273,9 @@ int main() {
 		{
 			
 		}
-		else if(opcao==7)//verificar se eh cheia
+		else if(opcao==7)//verificar se é cheia
 		{
-			
+			VerificarCheia(a);
 		}
 		else if(opcao==8)//imprimir nivel de um no
 		{
