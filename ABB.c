@@ -142,8 +142,22 @@ void ImprimirMenores(arvore *a, int x)
 			ImprimirMenores(a->dir, x);
 		}
 		else
-			ImprimirMenores(a->dir, x);
+			ImprimirMenores(a->esq, x);
 	}
+}
+
+arvore *Inserir(arvore *a, int x) {
+	if(a == NULL) {
+		a = (arvore*)malloc(sizeof(arvore));
+		a->info = x;
+		a->esq = NULL;
+		a->dir = NULL;
+	} else if(x <= a->info) {
+		a->esq = Inserir(a->esq, x);
+	} else {
+		a->dir = Inserir(a->dir, x);
+	}
+	return a;
 }
 
 arvore *Remover(arvore *a, int x){
@@ -281,16 +295,11 @@ int main(){
 		}
 		else if(opcao==6)//inserir nó
 		{
-			/*int balanc = VerificaBalanceamento(a);
-			if(balanc ==0) {
-				printf("------------------------\n");
-				printf("A árvore está balanceada.\n");
-				printf("------------------------\n");
-			}else {
-				printf("----------------------------\n");
-				printf("A árvore não está balanceada.\n");
-				printf("----------------------------\n");
-			}*/
+			int x;
+			printf("Qual elemento você deseja inserir?\n");
+			scanf("%d",&x);
+			a = Inserir(a, x);
+			printf("-----------------\nElemento Inserido\n-----------------\n");
 		}
 		else if(opcao==7)//remover nó
 		{
@@ -298,7 +307,7 @@ int main(){
 			printf("Qual nó deseja remover?\n>");
 			scanf("%d", &rem);
 			printf("-----------\n");
-			printf("Nó Removido");
+			printf("Nó Removido\n");
 			Remover(a, rem);
 			printf("-----------\n");
 		}
