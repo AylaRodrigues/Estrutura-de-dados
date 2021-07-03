@@ -135,7 +135,7 @@ void ImprimirMenores(arvore *a, int x)
 {
 	if (a!=NULL)
 	{
-		if (a->info<=x)
+		if (a->info<x)
 		{
 			printf("%d\n", a->info);
 			ImprimirMenores(a->esq, x);
