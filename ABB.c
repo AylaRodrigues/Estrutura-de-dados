@@ -131,6 +131,21 @@ void NivelNo(arvore *a, int no, int nivel) //imprimir nivel de um no
 	}
 }
 
+void ImprimirMenores(arvore *a, int x)
+{
+	if (a!=NULL)
+	{
+		if (a->info<=x)
+		{
+			printf("%d\n", a->info);
+			ImprimirMenores(a->esq, x);
+			ImprimirMenores(a->dir, x);
+		}
+		else
+			ImprimirMenores(a->dir, x);
+	}
+}
+
 arvore *Remover(arvore *a, int x){
 	if(a!=NULL)
 		if(a->info==x)
@@ -182,25 +197,25 @@ int main(){
 
 	while(opcao!=8)
 	{
-		printf("O que deseja fazer?\n 1.Ler ·rvore\n 2.Imprimir ·rvore\n 3.Verificar existÍncia de um elemento\n 4.Imprimir nÌvel de um nÛ\n 5.Imprimir as folhas menores que um valor\n 6.Inserir um nÛ na ·rvore\n 7.Remover um nÛ da ·rvore\n 8.Sair\n>");
+		printf("O que deseja fazer?\n 1.Ler √°rvore\n 2.Imprimir √°rvore\n 3.Verificar exist√™ncia de um elemento\n 4.Imprimir n√≠vel de um n√≥\n 5.Imprimir as folhas menores que um valor\n 6.Inserir um n√≥ na √°rvore\n 7.Remover um n√≥ da √°rvore\n 8.Sair\n>");
 		scanf("%d", &opcao);
 		printf("\n");
 		
 		if (opcao==1)//leitua da arvore
 		{
 			char arv[100]; 
-			printf("Qual ·rvore deseja ler?\n>");
+			printf("Qual √°rvore deseja ler?\n>");
 			scanf("%s", arv);
 			arq = fopen(arv, "rt");
 			printf("-----------\n");
-			printf("¡rvore Lida\n");
+			printf("√Årvore Lida\n");
 			printf("-----------\n");
 			a = LerArvore(arq, a);
 		}
 		else if(opcao==2)//impressao arvore
 		{
 			int escolha=0;
-			printf("Como deseja que seja feita a impress„o da ·rvore?\n 1.PrÈ-Ordem\n 2.Em-Ordem\n 3.PÛs-Ordem\n 4.Em largura\n");
+			printf("Como deseja que seja feita a impress√£o da √°rvore?\n 1.Pr√©-Ordem\n 2.Em-Ordem\n 3.P√≥s-Ordem\n 4.Em largura\n");
 			scanf("%d", &escolha);
 			if (escolha==1){
 				printf("----------\n");
@@ -231,25 +246,25 @@ int main(){
 		else if(opcao==3)//verificar existencia
 		{
 			int x;
-			printf("Qual o n˙mero que deseja verificar na ·rvore?\n");
+			printf("Qual o n√∫mero que deseja verificar na √°rvore?\n");
 			scanf("%d", &x);
 			x = Existe(a, x);
 
 			if (x==1){
 				printf("----------------------------\n");
-				printf("Esse n˙mero existe na ·rvore\n");
+				printf("Esse n√∫mero existe na √°rvore\n");
 				printf("----------------------------\n");
 			}
 			else{
 				printf("--------------------------------\n");
-				printf("Esse n˙mero n„o existe na ·rvore\n");
+				printf("Esse n√∫mero n√£o existe na √°rvore\n");
 				printf("--------------------------------\n");
 			}
 		}
-		else if (opcao==4)//imprimir nÌvel de nÛ
+		else if (opcao==4)//imprimir n√≠vel de n√≥
 		{
 			int no;
-			printf("De qual nÛ vocÍ deseja imprimir o nÌvel?\n");
+			printf("De qual n√≥ voc√™ deseja imprimir o n√≠vel?\n");
 			scanf("%d",&no);
 			printf("\n----------\n");
 			NivelNo(a,no,0);
@@ -257,30 +272,33 @@ int main(){
 		}
 		else if(opcao==5)//imprimir folhas menores q x 
 		{
+			int x;
+			printf("Qual o valor de x?\n");
+			scanf("%d", &x);
 			printf("----------\n");
-			//ImprimirFolhas(a);
+			ImprimirMenores(a, x);
 			printf("----------\n");
 		}
-		else if(opcao==6)//inserir nÛ
+		else if(opcao==6)//inserir n√≥
 		{
 			/*int balanc = VerificaBalanceamento(a);
 			if(balanc ==0) {
 				printf("------------------------\n");
-				printf("A ·rvore est· balanceada.\n");
+				printf("A √°rvore est√° balanceada.\n");
 				printf("------------------------\n");
 			}else {
 				printf("----------------------------\n");
-				printf("A ·rvore n„o est· balanceada.\n");
+				printf("A √°rvore n√£o est√° balanceada.\n");
 				printf("----------------------------\n");
 			}*/
 		}
-		else if(opcao==7)//remover nÛ
+		else if(opcao==7)//remover n√≥
 		{
 			int rem;
-			printf("Qual nÛ deseja remover?\n>");
+			printf("Qual n√≥ deseja remover?\n>");
 			scanf("%d", &rem);
 			printf("-----------\n");
-			printf("NÛ Removido")
+			printf("N√≥ Removido");
 			Remover(a, rem);
 			printf("-----------\n");
 		}
@@ -289,7 +307,7 @@ int main(){
 		system("cls");
 	}
 		a = Destruir(a);
-		printf("O usu·rio saiu!\n");
+		printf("O usu√°rio saiu!\n");
 		fclose(arq);
 	return 0;
 }
