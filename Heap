@@ -1,12 +1,13 @@
 // Grupo: Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
-// Exercicio 3 - Estrutura de dados
+// Exercicio de Heap - Estrutura de dados
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <Windows.h>
+#include <math.h>
 
-int IndiceFilhoEsq(int x)
+int IndiceFilhoEsq(int x, int totalElementos)
 {
 	int indice=(2*x)+1;
 	if (x<=totalElementos|| indice<=totalElementos)
@@ -17,7 +18,7 @@ int IndiceFilhoEsq(int x)
 		return indice;
 }
 
-int IndiceFilhoDir(int x)
+int IndiceFilhoDir(int x, int totalElementos)
 {
 	int indice=(2*x)+2;
 	if (x<=totalElementos|| indice<=totalElementos)
@@ -28,7 +29,7 @@ int IndiceFilhoDir(int x)
 		return indice;
 }
 
-int IndicePai(int x)
+int IndicePai(int x, int totalElementos)
 {
 	int indice=(int)floor((x-1)/2);
 	if (x>=0||x<totalElementos)
@@ -38,11 +39,12 @@ int IndicePai(int x)
 	else
 		return indice;
 }
-void AjustarSubindo(int *heap, int pos)
+
+void AjustarSubindo(int *heap, int pos, int totalElementos)
 {
 	if (pos!=-1)
 	{
-		int pai= IndicePai(pos);
+		int pai = IndicePai(pos, totalElementos);
 		if (pai!=1)
 		{
 			
@@ -51,27 +53,28 @@ void AjustarSubindo(int *heap, int pos)
 				int aux=heap[pos];
 				heap[pos]=heap[pai];
 				heap[pai]=aux;
-				AjustarSubindo(heap, pai);
+				AjustarSubindo(heap, pai, totalElementos);
 			}
 		}
 	}
 }
-void Inserir(int *heap, int x)
+
+void Inserir(int *heap, int x, int totalElementos)
 {
 	heap[totalElementos]=x;
 	totalElementos++;
 
-	AjustarSubindo(heap, totalElementos-1);
+	AjustarSubindo(heap, totalElementos-1, totalElementos);
 }
 
-void AjustarDescendo(int *heap, int pos)
+void AjustarDescendo(int *heap, int pos, int totalElementos)
 {
-	if (pos!=-1 && IndiceFilhoEsq(pos)=-1)
+	if (pos!=-1 && IndiceFilhoEsq(pos, totalElementos) != -1)
 	{
-		int indiceMaiorFilho=IndiceFilhoEsq(pos);
-		if (IndiceFilhoDir(pos)!=-1 && heap[IndiceFilhoDir(pos)]>heap[indiceMaiorFilho])
+		int indiceMaiorFilho = IndiceFilhoEsq(pos, totalElementos);
+		if (IndiceFilhoDir(pos, totalElementos)!=-1 && heap[IndiceFilhoDir(pos,totalElementos)]>heap[indiceMaiorFilho])
 		{
-			indiceMaiorFilho=IndiceFilhoDir(pos);
+			indiceMaiorFilho=IndiceFilhoDir(pos, totalElementos);
 		}
 
 		if (heap[indiceMaiorFilho]>heap[pos])
@@ -86,7 +89,10 @@ int main(){
 	setlocale(LC_ALL, "");
 	
 	int opcao=0;
-
+	
+	int heap[20];
+	int totalElementos = 0;
+	
 	while(opcao!=4)
 	{
 		printf("O que deseja fazer?\n 1.Inserir elemento na heap\n 2.Remover elemento da heap\n 3.Imprimir heap\n 4.Sair\n>");
@@ -110,9 +116,9 @@ int main(){
 		Sleep(5000);
 		system("cls");
 	}
-		a = Destruir(a);
+		
 		printf("O usuário saiu!\n");
-		fclose(arq);
+		
 	return 0;
 }
 
