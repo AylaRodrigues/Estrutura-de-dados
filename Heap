@@ -7,10 +7,12 @@
 #include <Windows.h>
 #include <math.h>
 
-int IndiceFilhoEsq(int x, int totalElementos)
+int totalElementos = 0;
+
+int IndiceFilhoEsq(int x)
 {
 	int indice=(2*x)+1;
-	if (x<=totalElementos|| indice<=totalElementos)
+	if (x >= totalElementos || indice >= totalElementos)
 	{
 		return -1;
 	}
@@ -18,10 +20,10 @@ int IndiceFilhoEsq(int x, int totalElementos)
 		return indice;
 }
 
-int IndiceFilhoDir(int x, int totalElementos)
+int IndiceFilhoDir(int x)
 {
-	int indice=(2*x)+2;
-	if (x<=totalElementos|| indice<=totalElementos)
+	int indice = (2 * x) + 2;
+	if (x >= totalElementos || indice >= totalElementos)
 	{
 		return -1;
 	}
@@ -29,10 +31,10 @@ int IndiceFilhoDir(int x, int totalElementos)
 		return indice;
 }
 
-int IndicePai(int x, int totalElementos)
+int IndicePai(int x)
 {
-	int indice=(int)floor((x-1)/2);
-	if (x>=0||x<totalElementos)
+	int indice=(int)floor((x - 1) / 2);
+	if (x <= 0 || x > totalElementos)
 	{
 		return -1;
 	}
@@ -40,48 +42,60 @@ int IndicePai(int x, int totalElementos)
 		return indice;
 }
 
-void AjustarSubindo(int *heap, int pos, int totalElementos)
+void AjustarSubindo(int *heap, int pos)
 {
-	if (pos!=-1)
+	if (pos != -1)
 	{
-		int pai = IndicePai(pos, totalElementos);
+		int pai = IndicePai(pos);
 		if (pai!=1)
 		{
 			
-			if (heap[pos]<heap[pai])
+			if (heap[pos] < heap[pai])
 			{
-				int aux=heap[pos];
-				heap[pos]=heap[pai];
-				heap[pai]=aux;
-				AjustarSubindo(heap, pai, totalElementos);
+				int aux = heap[pos];
+				heap[pos] = heap[pai];
+				heap[pai] = aux;
+				AjustarSubindo(heap, pai);
 			}
 		}
 	}
 }
 
-void Inserir(int *heap, int x, int totalElementos)
+void Inserir(int *heap, int x)
 {
-	heap[totalElementos]=x;
+	heap[totalElementos] = x;
 	totalElementos++;
 
-	AjustarSubindo(heap, totalElementos-1, totalElementos);
+	AjustarSubindo(heap, totalElementos-1);
 }
 
-void AjustarDescendo(int *heap, int pos, int totalElementos)
+void AjustarDescendo(int *heap, int pos)
 {
-	if (pos!=-1 && IndiceFilhoEsq(pos, totalElementos) != -1)
+	if (pos!=-1 && IndiceFilhoEsq(pos) != -1)
 	{
-		int indiceMaiorFilho = IndiceFilhoEsq(pos, totalElementos);
-		if (IndiceFilhoDir(pos, totalElementos)!=-1 && heap[IndiceFilhoDir(pos,totalElementos)]>heap[indiceMaiorFilho])
+		int indiceMaiorFilho = IndiceFilhoEsq(pos);
+		if (IndiceFilhoDir(pos) != -1 && heap[IndiceFilhoDir(pos)] < heap[indiceMaiorFilho])
 		{
-			indiceMaiorFilho=IndiceFilhoDir(pos, totalElementos);
+			indiceMaiorFilho = IndiceFilhoDir(pos);
 		}
 
-		if (heap[indiceMaiorFilho]>heap[pos])
+		if (heap[indiceMaiorFilho] < heap[pos])
 		{
 			int aux = heap[pos];
 			
 		}
+	}
+}
+
+int Remover(int *heap) {
+	if(totalElementos == 0)
+		return -1;
+	else {
+		int retorno = heap[0];
+		heap[0] = heap[totalElementos - 1];
+		totalElementos--;
+		AjustarDescendo(heap, 0);
+		return retorno;
 	}
 }
 
@@ -91,7 +105,6 @@ int main(){
 	int opcao=0;
 	
 	int heap[20];
-	int totalElementos = 0;
 	
 	while(opcao!=4)
 	{
@@ -101,7 +114,13 @@ int main(){
 		
 		if (opcao==1)//inserir elemento
 		{
-			
+			int x; 
+			printf("Digite o elemento que deseja inserir: \n");
+			scanf("%d", &x);
+			Inserir(heap, x);
+			printf("\n--------------------\n");
+			printf("Elemento %d inserido", x);
+			printf("\n--------------------\n");
 		}
 		else if(opcao==2)//remover elemento
 		{
@@ -110,10 +129,15 @@ int main(){
 		}
 		else if(opcao==3)//imprimir heap
 		{
-			
+			printf("\n----------------------------------\n");
+			for(int i = 0; i < totalElementos; i++) {
+				printf("- %d -", heap[i]);
+			}
+			printf("\n----------------------------------\n");
 		}
-
-		Sleep(5000);
+		
+		printf("\n\n");
+		system("pause");
 		system("cls");
 	}
 		
