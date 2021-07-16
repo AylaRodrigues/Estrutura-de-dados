@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 typedef struct registro {
 	
@@ -28,6 +29,21 @@ void inicializar(char *nomeArq) {
 	fclose(arq);
 }
 
+int AcharPosicao(){
+}
+
+void inserir(char *nomeArq, int mat, char *nome, char *curso) {
+	int pos = AcharPosicao(nomeArq, mat);
+	FILE *arq = fopen(nomeArq, "r+b");
+	registro a;
+	a.mat = mat;
+	strcpy(a.nome, nome);
+	strcpy(a.curso, curso);
+	fseek(arq, pos * sizeof(registro), SEEK_SET);
+	fwrite(&a, sizeof(registro), 1, arq);
+	fclose(arq);	
+}
+
 int main(){
 	setlocale(LC_ALL, "");
 	
@@ -37,7 +53,7 @@ int main(){
 	
 	while(opcao!=4)
 	{
-		printf("O que deseja fazer?\n 1.Inserir novo aluno\n 2.Impremir as informaÁıes de um determinado aluno\n 3.Imprimir tabela Hash\n 4.Sair\n>");
+		printf("O que deseja fazer?\n 1.Inserir novo aluno\n 2.Impremir as informa√ß√µes de um determinado aluno\n 3.Imprimir tabela Hash\n 4.Sair\n>");
 		scanf("%d", &opcao);
 		printf("\n");
 		
@@ -63,7 +79,7 @@ int main(){
 		system("cls");
 	}
 		
-		printf("O usu·rio saiu!\n");
+		printf("O usu√°rio saiu!\n");
 		
 	return 0;
 }
