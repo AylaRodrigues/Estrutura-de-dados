@@ -33,7 +33,7 @@ int IndiceFilhoDir(int x)
 
 int IndicePai(int x)
 {
-	int indice=(int)floor((x - 1) / 2);
+	int indice = (int)floor((x - 1) / 2);
 	if (x <= 0 || x > totalElementos)
 	{
 		return -1;
@@ -47,7 +47,7 @@ void AjustarSubindo(int *heap, int pos)
 	if (pos != -1)
 	{
 		int pai = IndicePai(pos);
-		if (pai!=1)
+		if (pai != -1)
 		{
 			
 			if (heap[pos] < heap[pai])
@@ -71,18 +71,20 @@ void Inserir(int *heap, int x)
 
 void AjustarDescendo(int *heap, int pos)
 {
-	if (pos!=-1 && IndiceFilhoEsq(pos) != -1)
+	if (pos != -1 && IndiceFilhoEsq(pos) != -1)
 	{
-		int indiceMaiorFilho = IndiceFilhoEsq(pos);
-		if (IndiceFilhoDir(pos) != -1 && heap[IndiceFilhoDir(pos)] < heap[indiceMaiorFilho])
+		int indiceMenorFilho = IndiceFilhoEsq(pos);
+		if (IndiceFilhoDir(pos) != -1 && heap[IndiceFilhoDir(pos)] < heap[indiceMenorFilho])
 		{
-			indiceMaiorFilho = IndiceFilhoDir(pos);
+			indiceMenorFilho = IndiceFilhoDir(pos);
 		}
 
-		if (heap[indiceMaiorFilho] < heap[pos])
+		if (heap[indiceMenorFilho] < heap[pos])
 		{
 			int aux = heap[pos];
-			
+			heap[pos] = heap[indiceMenorFilho];
+			heap[indiceMenorFilho] = aux;
+			AjustarDescendo(heap, indiceMenorFilho);
 		}
 	}
 }
@@ -124,7 +126,10 @@ int main(){
 		}
 		else if(opcao==2)//remover elemento
 		{
-			
+			int removido = Remover(heap);
+			printf("\n--------------------\n");
+			printf("Elemento %d removido", removido);
+			printf("\n--------------------\n");
 			
 		}
 		else if(opcao==3)//imprimir heap
@@ -134,6 +139,9 @@ int main(){
 				printf("- %d -", heap[i]);
 			}
 			printf("\n----------------------------------\n");
+		}
+		else if(opcao == 4) {
+			break;
 		}
 		
 		printf("\n\n");
