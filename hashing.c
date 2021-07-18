@@ -15,7 +15,7 @@ typedef struct registro {
 	char curso[50];
 	int disponibilidade;
 	
-}registro;
+}Registro;
 
 int hash(int key, int size) 
 {
@@ -25,10 +25,10 @@ int hash(int key, int size)
 void inicializar(char *nomeArq) 
 {
 	FILE *arq = fopen("alunos.bin", "wb");
-	registro a;
+	Registro a;
 	a.disponibilidade=1;
 	for(int i = 0; i < 20; i++) {
-		fwrite(&a, sizeof(registro), 1, arq);
+		fwrite(&a, sizeof(Registro), 1, arq);
 	}
 	
 	fclose(arq);
@@ -38,16 +38,16 @@ int AcharPosicao(char *nomeArq, int mat)
 {
 	int pos = hash(mat, N);
 
-	registro a;
+	Registro a;
 	FILE *arq=fopen("alunos.bin","rb");
-	fseek(arq, pos*sizeof(registro),SEEK_SET);
-	fread(&a,sizeof(registro), 1, arq);
+	fseek(arq, pos*sizeof(Registro),SEEK_SET);
+	fread(&a,sizeof(Registro), 1, arq);
 
 	while(a.disponibilidade == 0)
 	{
 		pos=(pos+1)%N;
-		fseek(arq, pos*sizeof(registro),SEEK_SET);
-		fread(&a,sizeof(registro), 1, arq);
+		fseek(arq, pos*sizeof(Registro),SEEK_SET);
+		fread(&a,sizeof(Registro), 1, arq);
 	}
 	fclose(arq);
 	return pos;
@@ -59,14 +59,14 @@ void inserir(char *nomeArq, int mat, char *nome, char *curso)
 
 	FILE *arq = fopen("alunos.bin", "r+b");
 
-	registro a;
+	Registro a;
 	a.mat = mat;
 	strcpy(a.nome, nome);
 	strcpy(a.curso, curso);
 	a.disponibilidade=0;
 
-	fseek(arq, pos * sizeof(registro), SEEK_SET);
-	fwrite(&a, sizeof(registro), 1, arq);
+	fseek(arq, pos * sizeof(Registro), SEEK_SET);
+	fwrite(&a, sizeof(Registro), 1, arq);
 	printf("Aluno inserido com sucesso\n\n");
 
 	fclose(arq);
@@ -78,7 +78,7 @@ void buscarAluno(char *nome)
 {
 	FILE *arquivo;
 
-	registro registro;
+	Registro registro;
 
 	arquivo=fopen("alunos.bin", "rb");
 
@@ -88,10 +88,11 @@ void buscarAluno(char *nome)
 	}
 	else
 	{
-		while(fread(&registro, sizeof(registro), 1, arquivo)==1)
+		while(fread(&registro, sizeof(Registro), 1, arquivo)==1)
 		{
 			if(nome == registro.nome)
 			{
+				//nao chega ate aqui
 				printf("> Nome do aluno : %s\n", nome);
 				printf("> Matricula do aluno : %s\n", registro.mat);
 				printf("> Curso do aluno : %s\n", registro.curso);
