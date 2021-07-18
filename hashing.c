@@ -64,13 +64,42 @@ void inserir(char *nomeArq, int mat, char *nome, char *curso)
 	strcpy(a.nome, nome);
 	strcpy(a.curso, curso);
 	a.disponibilidade=0;
+
 	fseek(arq, pos * sizeof(registro), SEEK_SET);
 	fwrite(&a, sizeof(registro), 1, arq);
-
 	printf("Aluno inserido com sucesso\n\n");
+
 	fclose(arq);
 	Sleep(1000);
 	system("cls");
+}
+
+void buscarAluno(char *nome)
+{
+	FILE *arquivo;
+
+	registro registro;
+
+	arquivo=fopen("alunos.bin", "rb");
+
+	if (arquivo == NULL)
+	{
+		printf("Problemas na leitura do arquivo\n");
+	}
+	else
+	{
+		while(fread(&registro, sizeof(registro), 1, arquivo)==1)
+		{
+			if(nome == registro.nome)
+			{
+				printf("> Nome do aluno : %s\n", nome);
+				printf("> Matricula do aluno : %s\n", registro.mat);
+				printf("> Curso do aluno : %s\n", registro.curso);
+			}
+		}
+	}Sleep(5000);
+	system("cls");
+	fclose(arquivo);
 }
 
 int main()
@@ -79,8 +108,9 @@ int main()
 	
 	int opcao = 0;
 	int matricula;
-	char nome[50];
+	char nome[20];
 	char curso[50];
+	char nomeBusca[20];
 	
 	inicializar("alunos.bin");
 	
@@ -106,7 +136,10 @@ int main()
 		}
 		else if(opcao==2)//imprimir info
 		{
-			
+			printf("> Qual o nome do aluno?\n");
+			scanf("%s", &nomeBusca);
+
+			buscarAluno(nomeBusca);
 			
 		}
 		else if(opcao==3)//imprimir tabela de dispersao
