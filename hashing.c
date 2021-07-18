@@ -84,7 +84,7 @@ int main()
 		scanf("%d", &opcao);
 		printf("\n");
 		
-		if (opcao==1)//inserir elemento
+		if (opcao==1)//inserir novo aluno
 		{
 			printf("Qual a matricula do aluno?\n")
 			scanf("%d", &matricula);
@@ -98,12 +98,12 @@ int main()
 			inserir("alunos.bin", matricula, nome, curso);
 
 		}
-		else if(opcao==2)//remover elemento
+		else if(opcao==2)//imprimir info
 		{
 			
 			
 		}
-		else if(opcao==3)//imprimir heap
+		else if(opcao==3)//imprimir tabela de dispersao
 		{
 			
 		}
