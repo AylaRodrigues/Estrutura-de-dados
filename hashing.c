@@ -1,172 +1,157 @@
-// Ayla Rodrigues e Sofia Kitaeva
-// Trabalho Indexacao - Programacao com arquivos
+// Grupo: Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
+// Exercicio de Hashing - Estrutura de dados
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
 
-typedef struct Palavra
+#define N 11
+
+typedef struct registro {
+	
+	int mat;
+	char nome[20];
+	char curso[50];
+	int disponibilidade;
+	
+}Registro;
+
+int hash(int key, int size) 
 {
-    char letras[50];
-    int qntOcorencias;
-    int *linhas;
-    struct Palavra *prox,*ant;
-
-}Palavra;
-
-Palavra *CriarLista()
-{
-    return NULL;
-};
-
-Palavra *CriarElemento(char letras[])
-{
-    struct Palavra *resp = (struct Palavra*) malloc(sizeof(struct Palavra));
-    resp->qntOcorencias=1;
-
-    strcpy(resp->linhas,letras);
-    resp->prox=NULL;
-    resp->ant=NULL;
-
-    return resp;
-};
-
-Palavra *Buscar(struct Palavra *Lista)
-{
-    struct Palavra *aux1 = Lista->prox;
-    struct Palavra *aux2 = Lista->prox->prox;
-
-    while(aux1!=Lista)
-    {
-        while(aux2!=Lista)
-        {
-            if(strcmp(aux1->linhas, aux2->linhas)==0)
-            {
-                aux1->qntOcorencias++;
-                aux2->prox->ant=aux2->ant;
-                aux2->ant->prox=aux2->prox;
-                free(aux2);
-            }
-        }
-    }
-};
-
-void InserirElemento(struct Palavra *Lista, char letras[])
-{
-    struct Palavra *novo = CriarElemento(letras);
-    struct Palavra *aux = Lista->prox;
-
-    if(aux==Lista){
-        novo->prox=Lista;
-        novo->ant=Lista->ant;
-        Lista->ant->prox=novo;
-        Lista->ant = novo;
-    }
-    else
-    {
-        while(aux!=Lista){
-            if(strcmp(novo->linhas,aux->linhas)<0){
-                novo->prox=aux;
-                novo->ant=aux->ant;
-                aux->ant->prox=novo;
-                aux->ant=novo;
-                aux=Lista;
-            }
-            else
-            {
-                aux=aux->prox;
-            }
-        }
-
-        if(novo->prox==NULL){
-            novo->prox=Lista;
-            novo->ant=Lista->ant;
-            Lista->ant->prox=novo;
-            Lista->ant = novo;
-        }
-    }
+	return key % size;
 }
 
-void ProcurarPalavra()
+void inicializar(char *nomeArq) 
 {
-    FILE *arq;
-
-    Lista = NULL;
-    char arv[100];
-    char letras[100];
-
-    printf("Qual o nome do arquivo?\n");
-    scanf("%s", arv);
-    arq=fopen(arv,"rt");
-
-    if (arq!=NULL)
-    {
-       Lista = CriarLista();
-
-       while(fread(&palavra, sizeof(Palavra), 1, arq)==1)
-       {
-          if (strcmp(letras, lista.letras)==0)
-          {
-            lista.qntOcorencias++; 
-          }
-          else 
-          {
-            InserirElemento(Lista, letras);
-          }
-      }
-
-    }
-Sleep(1000);
-system("cls");
-fclose(arquivo);
+	FILE *arq = fopen("alunos.bin", "wb");
+	Registro a;
+	a.disponibilidade=1;
+	for(int i = 0; i < 20; i++) {
+		fwrite(&a, sizeof(Registro), 1, arq);
+	}
+	
+	fclose(arq);
 }
 
-void listar(struct Palavra *Lista)
+int AcharPosicao(char *nomeArq, int mat)
 {
-    struct Palavra *aux = Lista;
-    if (Lista ==NULL)
-    {
-       return;
-   }
-   do
-   {
-       printf("%s, %d", aux->letras, aux-> qntOcorencias);
+	int pos = hash(mat, N);
 
-   }while(aux!=Lista);
-};
+	Registro a;
+	FILE *arq=fopen("alunos.bin","rb");
+	fseek(arq, pos*sizeof(Registro),SEEK_SET);
+	fread(&a,sizeof(Registro), 1, arq);
 
+	while(a.disponibilidade == 0)
+	{
+		pos=(pos+1)%N;
+		fseek(arq, pos*sizeof(Registro),SEEK_SET);
+		fread(&a,sizeof(Registro), 1, arq);
+	}
+	fclose(arq);
+	return pos;
+}
 
-int main(){
+void inserir(char *nomeArq, int mat, char *nome, char *curso) 
+{
+	int pos = AcharPosicao("alunos.bin", mat);
 
-    setlocale(LC_ALL, "");
+	FILE *arq = fopen("alunos.bin", "r+b");
 
-    int opcao =0;
-    struct Palavra *Lista;
-    Lista=CriarLista();
+	Registro a;
+	a.mat = mat;
+	strcpy(a.nome, nome);
+	strcpy(a.curso, curso);
+	a.disponibilidade=0;
 
-    while (opcao!=3)
-    {
-       printf("O que deseja fazer?\n1.Criar um indice para um arquivo de texto.\n2.Utilizar um indice existente para realizar busca por palavras.\n3.Encerrar programa.\n");
-       scanf("%d", &opcao);
-       printf("\n");
+	fseek(arq, pos*sizeof(Registro), SEEK_SET);
+	fwrite(&a, sizeof(Registro), 1, arq);
+	printf("Aluno inserido com sucesso\n\n");
 
-       if (opcao==1)
-       {
-          ProcurarPalavra();
-          listar(Lista);
+	fclose(arq);
+	Sleep(1000);
+	system("cls");
+}
 
-      }
+void buscarAluno(char *nome)
+{
+	FILE *arquivo;
 
-      else if(opcao==2)
-      {
+	Registro registro;
 
-      }
+	arquivo=fopen("alunos.bin", "rb");
 
-      Sleep(5000);
-      system("cls");
-  }
-  printf("O usu?io saiu!\n");
+	if (arquivo == NULL)
+	{
+		printf("Problemas na leitura do arquivo\n");
+	}
+	else
+	{
+		while(fread(&registro, sizeof(Registro), 1, arquivo)==1)
+		{
+			if(nome == registro.nome)
+			{
+				//nao chega ate aqui
+				printf("> Nome do aluno : %s\n", nome);
+				printf("> Matricula do aluno : %s\n", registro.mat);
+				printf("> Curso do aluno : %s\n", registro.curso);
+			}
+		}
+	}
 
-  return 0;
+	Sleep(1000);
+	system("cls");
+	fclose(arquivo);
+}
+
+int main()
+{
+	setlocale(LC_ALL, "");
+	
+	int opcao = 0;
+	int matricula;
+	char nome[20];
+	char curso[50];
+	
+	inicializar("alunos.bin");
+	
+	while(opcao!=4)
+	{
+		printf("O que deseja fazer?\n 1.Inserir novo aluno\n 2.Imprimir as informações de um determinado aluno\n 3.Imprimir tabela Hash\n 4.Sair\n\n>");
+		scanf("%d", &opcao);
+		printf("\n");
+		
+		if (opcao==1)//inserir novo aluno
+		{
+			printf("> Qual a matricula do aluno?\n");
+			scanf("%d", &matricula);
+
+			printf("> Qual o nome do aluno?\n");
+			scanf("%s", &nome);
+
+			printf("> Qual o curso do aluno?\n");
+			scanf("%s", &curso);
+
+			inserir("alunos.bin", matricula, nome, curso);
+
+		}
+		else if(opcao==2)//imprimir info
+		{
+			printf("> Qual o nome do aluno?\n");
+			scanf("%s", &nome);
+
+			buscarAluno(nome);
+			
+		}
+		else if(opcao==3)//imprimir tabela de dispersao
+		{
+			
+		}
+		printf("\n\n");
+		system("cls");
+	}
+	printf("O usuário saiu!\n");
+
+	return 0;
 }
