@@ -21,7 +21,7 @@ int hash(int key, int size) {
 
 void inicializar(char *nomeArq) {
 	
-	FILE *arq = fopen(nomeArq, "wb");
+	FILE *arq = fopen("alunos.bin", "wb");
 	registro a;
 	for(int i = 0; i < 20; i++) {
 		fwrite(&a, sizeof(registro), 1, arq);
@@ -34,7 +34,7 @@ int AcharPosicao(char *nomeArq, int mat){
 	int pos=hash(mat);
 
 	registro a;
-	FILE *arq=fopen(nomeArq,"rb");
+	FILE *arq=fopen("alunos.bin","rb");
 	fseek(arq, pos*sizeof(registro),SEEK_SET);
 	fread(&a,sizeof(registro), 1, arq);
 
@@ -50,9 +50,9 @@ int AcharPosicao(char *nomeArq, int mat){
 
 void inserir(char *nomeArq, int mat, char *nome, char *curso) {
 	
-	int pos = AcharPosicao(nomeArq, mat);
+	int pos = AcharPosicao("alunos.bin", mat);
 
-	FILE *arq = fopen(nomeArq, "r+b");
+	FILE *arq = fopen("alunos.bin", "r+b");
 
 	registro a;
 	a.mat = mat;
@@ -90,7 +90,7 @@ int main(){
 			printf("Qual o curso do aluno?\n")
 			scanf("%s", &curso);
 
-			inserir(, matricula, nome, curso)
+			inserir("alunos.bin", matricula, nome, curso);
 
 		}
 		else if(opcao==2)//remover elemento
