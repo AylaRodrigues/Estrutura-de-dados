@@ -6,6 +6,8 @@
 #include <locale.h>
 #include <string.h>
 
+#define N 11
+
 typedef struct registro {
 	
 	int mat;
@@ -22,9 +24,9 @@ int hash(int key, int size)
 
 void inicializar(char *nomeArq) 
 {
-	
 	FILE *arq = fopen("alunos.bin", "wb");
 	registro a;
+	a.disponibilidade=1;
 	for(int i = 0; i < 20; i++) {
 		fwrite(&a, sizeof(registro), 1, arq);
 	}
@@ -34,14 +36,14 @@ void inicializar(char *nomeArq)
 
 int AcharPosicao(char *nomeArq, int mat)
 {
-	int pos = hash(mat);
+	int pos = hash(mat, N);
 
 	registro a;
 	FILE *arq=fopen("alunos.bin","rb");
 	fseek(arq, pos*sizeof(registro),SEEK_SET);
 	fread(&a,sizeof(registro), 1, arq);
 
-	while(a.nome == 0)
+	while(a.disponibilidade == 0)
 	{
 		pos=(pos+1)%N;
 		fseek(arq, pos*sizeof(registro),SEEK_SET);
@@ -53,7 +55,6 @@ int AcharPosicao(char *nomeArq, int mat)
 
 void inserir(char *nomeArq, int mat, char *nome, char *curso) 
 {
-	
 	int pos = AcharPosicao("alunos.bin", mat);
 
 	FILE *arq = fopen("alunos.bin", "r+b");
@@ -62,9 +63,14 @@ void inserir(char *nomeArq, int mat, char *nome, char *curso)
 	a.mat = mat;
 	strcpy(a.nome, nome);
 	strcpy(a.curso, curso);
+	a.disponibilidade=0;
 	fseek(arq, pos * sizeof(registro), SEEK_SET);
 	fwrite(&a, sizeof(registro), 1, arq);
+
+	printf("Aluno inserido com sucesso\n\n");
 	fclose(arq);
+	Sleep(1000);
+	system("cls");
 }
 
 int main()
@@ -80,19 +86,19 @@ int main()
 	
 	while(opcao!=4)
 	{
-		printf("O que deseja fazer?\n 1.Inserir novo aluno\n 2.Imprimir as informações de um determinado aluno\n 3.Imprimir tabela Hash\n 4.Sair\n>");
+		printf("O que deseja fazer?\n 1.Inserir novo aluno\n 2.Imprimir as informações de um determinado aluno\n 3.Imprimir tabela Hash\n 4.Sair\n\n>");
 		scanf("%d", &opcao);
 		printf("\n");
 		
 		if (opcao==1)//inserir novo aluno
 		{
-			printf("Qual a matricula do aluno?\n")
+			printf("> Qual a matricula do aluno?\n");
 			scanf("%d", &matricula);
 
-			printf("Qual o nome do aluno?\n")
+			printf("> Qual o nome do aluno?\n");
 			scanf("%s", &nome);
 
-			printf("Qual o curso do aluno?\n")
+			printf("> Qual o curso do aluno?\n");
 			scanf("%s", &curso);
 
 			inserir("alunos.bin", matricula, nome, curso);
@@ -107,12 +113,9 @@ int main()
 		{
 			
 		}
-		
 		printf("\n\n");
-		system("pause");
 		system("cls");
 	}
-
 	printf("O usuário saiu!\n");
 
 	return 0;
