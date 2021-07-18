@@ -15,11 +15,13 @@ typedef struct registro {
 	
 }registro;
 
-int hash(int key, int size) {
+int hash(int key, int size) 
+{
 	return key % size;
 }
 
-void inicializar(char *nomeArq) {
+void inicializar(char *nomeArq) 
+{
 	
 	FILE *arq = fopen("alunos.bin", "wb");
 	registro a;
@@ -30,8 +32,9 @@ void inicializar(char *nomeArq) {
 	fclose(arq);
 }
 
-int AcharPosicao(char *nomeArq, int mat){
-	int pos=hash(mat);
+int AcharPosicao(char *nomeArq, int mat)
+{
+	int pos = hash(mat);
 
 	registro a;
 	FILE *arq=fopen("alunos.bin","rb");
@@ -48,7 +51,8 @@ int AcharPosicao(char *nomeArq, int mat){
 	return pos;
 }
 
-void inserir(char *nomeArq, int mat, char *nome, char *curso) {
+void inserir(char *nomeArq, int mat, char *nome, char *curso) 
+{
 	
 	int pos = AcharPosicao("alunos.bin", mat);
 
@@ -63,7 +67,8 @@ void inserir(char *nomeArq, int mat, char *nome, char *curso) {
 	fclose(arq);
 }
 
-int main(){
+int main()
+{
 	setlocale(LC_ALL, "");
 	
 	int opcao = 0;
@@ -102,16 +107,13 @@ int main(){
 		{
 			
 		}
-		else if(opcao == 4) {
-			opcao = 4;
-		}
 		
 		printf("\n\n");
 		system("pause");
 		system("cls");
 	}
-		
-		printf("O usuário saiu!\n");
-		
+
+	printf("O usuário saiu!\n");
+
 	return 0;
 }
