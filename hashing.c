@@ -65,7 +65,7 @@ void inserir(char *nomeArq, int mat, char *nome, char *curso)
 	strcpy(a.curso, curso);
 	a.disponibilidade=0;
 
-	fseek(arq, pos * sizeof(Registro), SEEK_SET);
+	fseek(arq, pos*sizeof(Registro), SEEK_SET);
 	fwrite(&a, sizeof(Registro), 1, arq);
 	printf("Aluno inserido com sucesso\n\n");
 
@@ -98,7 +98,7 @@ void buscarAluno(char *nome)
 				printf("> Curso do aluno : %s\n", registro.curso);
 			}
 		}
-	}Sleep(5000);
+	}Sleep(1000);
 	system("cls");
 	fclose(arquivo);
 }
