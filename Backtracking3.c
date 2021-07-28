@@ -9,25 +9,24 @@ void ImprimirCombinacoes(int *vet, int pos, int cent, int* vetAux){
 	int aux=0;
 	
 	if(pos==cent){
-		for(int i=0; i<cent;i++)
+		int qtd1 = 0;
+		int qtd5 = 0;
+		int qtd10 = 0;
+		int qtd25 = 0;
+		int qtd50 = 0;
+		
+		for(int i=0; i<cent;i++){
 			aux+=vet[i];
-		if(aux==cent)
-		{
-			int qtd1 = 0;
-			int qtd5 = 0;
-			int qtd10 = 0;
-			int qtd25 = 0;
-			int qtd50 = 0;
-			for(int i=0; i<cent;i++)
-			{
-				switch(vet[i]){
+			switch(vet[i]){
 					case 1: qtd1++; break;
 					case 5: qtd5++; break;
 					case 10: qtd10++; break;
 					case 25: qtd25++; break;
 					case 50: qtd50++; break;
-				}	
-			}
+			}	
+		}
+		if(aux==cent)
+		{	
 			if(qtd1 != 0){
 				printf("%d moedas de 1 centavo; ", qtd1);
 			}
