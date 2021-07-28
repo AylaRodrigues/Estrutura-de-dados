@@ -1,3 +1,6 @@
+//Grupo: Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
+//Backtracking exercício 3
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -10,14 +13,37 @@ void ImprimirCombinacoes(int *vet, int pos, int cent, int* vetAux){
 			aux+=vet[i];
 		if(aux==cent)
 		{
+			int qtd1 = 0;
+			int qtd5 = 0;
+			int qtd10 = 0;
+			int qtd25 = 0;
+			int qtd50 = 0;
 			for(int i=0; i<cent;i++)
 			{
-				if(vet[i]!=0)
-				{
-					printf("%d ", vet[i]);
-				}
-				
-			}printf("\n");
+				switch(vet[i]){
+					case 1: qtd1++; break;
+					case 5: qtd5++; break;
+					case 10: qtd10++; break;
+					case 25: qtd25++; break;
+					case 50: qtd50++; break;
+				}	
+			}
+			if(qtd1 != 0){
+				printf("%d moedas de 1 centavo; ", qtd1);
+			}
+			if(qtd5 != 0){
+				printf("%d moedas de 5 centavo; ", qtd5);
+			}
+			if(qtd10 != 0){
+				printf("%d moedas de 10 centavo; ", qtd10);
+			}
+			if(qtd25 != 0){
+				printf("%d moedas de 25 centavo; ", qtd50);
+			}
+			if(qtd50 != 0){
+				printf("%d moedas de 50 centavo; ", qtd50);
+			}
+			printf("\n");
 
 		}
 	}
