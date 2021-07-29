@@ -37,7 +37,7 @@ void ImprimirCombinacoes(int *vet, int pos, int cent, int* vetAux){
 				printf("%d moedas de 10 centavo; ", qtd10);
 			}
 			if(qtd25 != 0){
-				printf("%d moedas de 25 centavo; ", qtd50);
+				printf("%d moedas de 25 centavo; ", qtd25);
 			}
 			if(qtd50 != 0){
 				printf("%d moedas de 50 centavo; ", qtd50);
