@@ -73,6 +73,34 @@ void ImprimirGrafo(lista **g, int n) {
 	}
 }
 
+void ImprimirGrausES(lista **g, int n) {
+	int *vet = (int *)malloc((n+1)*sizeof(int));
+	for(int i = 0; i <= n; i++) {
+		vet[i] = 0;
+	}
+	
+	
+	printf("\n---- Grau de Entrada: ----\n");
+	for(int i = 0; i <= n; i++) {
+		int ct = 0;
+		lista *aux = g[i];
+		while(aux != NULL) {
+			ct++;
+			vet[aux->destino]++;
+			aux = aux->prox;
+		}
+		printf("Vértice %d: grau %d\n",i, ct);
+		
+	}
+	
+	printf("\n---- Grau de Saída: ----\n");
+	for(int i = 0; i <= n; i++) {
+		printf("Vértice %d: grau %d\n",i,vet[i]);
+	}
+	
+	free(vet);
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
@@ -125,7 +153,7 @@ int main() {
 		}else if(opcao == 3) {
 			ImprimirGrafo(g, n);
 		}else if(opcao == 4) {
-			
+			ImprimirGrausES(g, n);
 		}else if(opcao == 5) {
 			
 		}
@@ -134,6 +162,8 @@ int main() {
 		system("pause");
 		system("cls");
 	}
+	
+	free(*g);
 	
 	return 0;
 }
