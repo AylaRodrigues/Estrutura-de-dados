@@ -23,26 +23,30 @@ lista *InserirLista(lista *l, int d, int c) {
 }
 
 void *RemoveLista(lista *l, int d) {
-	lista *aux = l->prox;
-	lista *auxAnt = l;
 	
-	if(auxAnt->destino == d) {
-		auxAnt = aux;
-		free(auxAnt);
+	if(l->destino == d) {
+		printf("entrou primeira condição\n");
+		lista *aux = l;
+		l = l->prox;
+		free(aux);
 		return l;		
 	}
 	
-	while(aux != NULL &&  aux->destino != d) {
-		
+	lista *aux = l->prox;
+	lista *auxAnt = l;
+	
+	while(auxAnt != NULL) {
 		if(aux->destino == d) {
 			auxAnt->prox = aux->prox;
 			free(aux);
-			break;
+			return l;
 		}
-		
 		aux = aux->prox;
 		auxAnt = auxAnt->prox;
 	}
+	
+	free(aux);
+	return l;
 	
 }
 
@@ -51,7 +55,6 @@ void *InserirAresta(lista **g, int origem, int destino, int custo) {
 }
 
 void *RemoverAresta(lista **g, int origem, int destino) {
-	printf("%d\n", origem);
 	g[origem] = RemoveLista(g[origem], destino);
 }
 
@@ -65,7 +68,7 @@ void ImprimirLista(lista *l) {
 void ImprimirGrafo(lista **g, int n) {
 	printf("---- Grafo: ----");
 	for(int i = 0; i <= n; i++) {
-		printf("\nAresta: %d Para: ",i);
+		printf("\nVértice %d: ",i);
 		ImprimirLista(g[i]);
 	}
 }
