@@ -1,4 +1,4 @@
-// Alunos: Douglas Mareli Lopes
+// Alunos: Douglas Mareli Lopes, Ayla Rodrigues e Sofia Kitaeva
 //Exercicio de Grafo
 
 #include <stdio.h>
@@ -104,7 +104,7 @@ void ImprimirGrausES(lista **g, int n) {
 }
 
 int VerificaGrafoCompleto(lista **g, int n) {
-	printf("entroou\n");
+	
 	int ct = 0;
 	for(int i = 1; i <= n; i++) {
 		lista *aux = g[i];
@@ -115,7 +115,7 @@ int VerificaGrafoCompleto(lista **g, int n) {
 	}
 	
 	int total = n * (n-1);
-	printf("%d total %d ct\n",total,ct);
+	
 	if(ct == total) {
 		return 1;
 	} else {
@@ -140,9 +140,9 @@ int main() {
 	
 	int opcao = 0;
 	while(opcao != 6) {
-		printf("O que deseja fazer?\n 1.Inserir uma arestra no grafo\n 2.Remover uma arestra do grafo\n 3.Imprimir grafo\n 4.Imprimir os graus de entrada e saída de um vértice	\n 5.Verificar se um grafo é completo\n 6.Sair\n>");
+		printf("O que deseja fazer?\n 1.Inserir uma aresta no grafo\n 2.Remover uma aresta do grafo\n 3.Imprimir grafo\n 4.Imprimir os graus de entrada e saída de um vértice\n 5.Verificar se um grafo é completo\n 6.Sair\n>");
 		scanf("%d", &opcao);
-		printf("opcao escolhida %d\n",opcao);
+		
 		if(opcao == 1) {
 			int origem;
 			printf("\nDigite a vértice de origem: \n>");
@@ -179,7 +179,7 @@ int main() {
 		}else if(opcao == 4) {
 			ImprimirGrausES(g, n);
 		}else if(opcao == 5) {
-			printf("alou\n");
+			
 			int ehCompleto;
 			ehCompleto = VerificaGrafoCompleto(g, n);
 			if(ehCompleto == 1) {
@@ -187,18 +187,17 @@ int main() {
 				printf("O grafo está completo\n");
 				printf("----------------------\n");
 			}else {
-				printf("\n----------------------\n");
+				printf("\n--------------------------\n");
 				printf("O grafo não está completo\n");
-				printf("----------------------\n");
+				printf("--------------------------\n");
 			}
 		}
-		
+	
 		printf("\n\n");
 		system("pause");
 		system("cls");
 	}
-	
-	free(*g);
+	printf("O usuário saiu.\n");
 	
 	return 0;
 }
