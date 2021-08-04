@@ -1,3 +1,6 @@
+// Alunos: Douglas Mareli Lopes
+//Exercicio de Grafo
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -25,7 +28,6 @@ lista *InserirLista(lista *l, int d, int c) {
 void *RemoveLista(lista *l, int d) {
 	
 	if(l->destino == d) {
-		printf("entrou primeira condição\n");
 		lista *aux = l;
 		l = l->prox;
 		free(aux);
@@ -67,7 +69,7 @@ void ImprimirLista(lista *l) {
 
 void ImprimirGrafo(lista **g, int n) {
 	printf("---- Grafo: ----");
-	for(int i = 0; i <= n; i++) {
+	for(int i = 1; i <= n; i++) {
 		printf("\nVértice %d: ",i);
 		ImprimirLista(g[i]);
 	}
@@ -75,30 +77,52 @@ void ImprimirGrafo(lista **g, int n) {
 
 void ImprimirGrausES(lista **g, int n) {
 	int *vet = (int *)malloc((n+1)*sizeof(int));
-	for(int i = 0; i <= n; i++) {
+	for(int i = 0; i < n; i++) {
 		vet[i] = 0;
 	}
 	
 	
-	printf("\n---- Grau de Entrada: ----\n");
-	for(int i = 0; i <= n; i++) {
+	printf("\n---- Grau de Saída: ----\n");
+	for(int i = 1; i <= n; i++) {
 		int ct = 0;
 		lista *aux = g[i];
-		while(aux != NULL) {
+		while(aux != NULL) {     
 			ct++;
-			vet[aux->destino]++;
+			vet[aux->destino - 1]++; // 
 			aux = aux->prox;
 		}
 		printf("Vértice %d: grau %d\n",i, ct);
 		
 	}
 	
-	printf("\n---- Grau de Saída: ----\n");
-	for(int i = 0; i <= n; i++) {
-		printf("Vértice %d: grau %d\n",i,vet[i]);
+	printf("\n---- Grau de Entrada: ----\n");
+	for(int i = 0; i < n; i++) {
+		printf("Vértice %d: grau %d\n",i+1,vet[i]);
 	}
 	
 	free(vet);
+}
+
+int VerificaGrafoCompleto(lista **g, int n) {
+	printf("entroou\n");
+	int ct = 0;
+	for(int i = 1; i <= n; i++) {
+		lista *aux = g[i];
+		while(aux != NULL) {     
+			ct++; 
+			aux = aux->prox;
+		}
+	}
+	
+	int total = n * (n-1);
+	printf("%d total %d ct\n",total,ct);
+	if(ct == total) {
+		return 1;
+	} else {
+		return 0;
+	}
+	
+	
 }
 
 int main() {
@@ -118,7 +142,7 @@ int main() {
 	while(opcao != 6) {
 		printf("O que deseja fazer?\n 1.Inserir uma arestra no grafo\n 2.Remover uma arestra do grafo\n 3.Imprimir grafo\n 4.Imprimir os graus de entrada e saída de um vértice	\n 5.Verificar se um grafo é completo\n 6.Sair\n>");
 		scanf("%d", &opcao);
-		
+		printf("opcao escolhida %d\n",opcao);
 		if(opcao == 1) {
 			int origem;
 			printf("\nDigite a vértice de origem: \n>");
@@ -155,7 +179,18 @@ int main() {
 		}else if(opcao == 4) {
 			ImprimirGrausES(g, n);
 		}else if(opcao == 5) {
-			
+			printf("alou\n");
+			int ehCompleto;
+			ehCompleto = VerificaGrafoCompleto(g, n);
+			if(ehCompleto == 1) {
+				printf("\n----------------------\n");
+				printf("O grafo está completo\n");
+				printf("----------------------\n");
+			}else {
+				printf("\n----------------------\n");
+				printf("O grafo não está completo\n");
+				printf("----------------------\n");
+			}
 		}
 		
 		printf("\n\n");
