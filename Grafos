@@ -178,32 +178,41 @@ int* CaminhoMaisCurto(lista **g, int b, int *vet, int *vetAux, int pos) {
 	return vetAux;
 }
 
-int* CaminhoMenorCusto(lista **g, int b, int *vet, int *vetAux, int pos, int *menorCusto, int *custo) {
-	
-	if(vet[pos-1] == b) {
-		for(int i = 0; i < pos; i++) {
-				vetAux[i+1] = vet[i];  
-				printf("%d ",vet[i]);
+int Custo(lista **g, int *vet, int num) {
+	int custo = 0;
+	for(int i = 0; i < num; i++) {             
+		lista *aux = g[vet[i]];
+		while(aux != NULL) {
+			if((i+1)!=num && aux->destino == vet[i+1]){  
+				custo+= aux->custo;
 			}
 			
-		if(*menorCusto == 0 || *menorCusto > *custo){
-			*menorCusto = *custo;
-			vet[0] = pos;
+		aux = aux->prox;
+		}
+	}
+	
+	return custo;
+	
+}
+
+int* CaminhoMenorCusto(lista **g, int b, int *vet, int *vetAux, int pos, int *menorCusto) {
+	
+	if(vet[pos-1] == b) {
+		int custo = Custo(g, vet, pos);	
+		if(*menorCusto == 0 || *menorCusto > custo){    
+			*menorCusto = custo;
+			vetAux[0] = pos;
 			for(int i = 0; i < vetAux[0]; i++) {
 				vetAux[i+1] = vet[i];  
-				printf("%d ",vet[i]);
 			}
 		}
-		*custo = 0;
-		printf("trocou %d menor custo %d\n",*custo,*menorCusto);
-		
+											
 	} else {
 		lista *p = g[vet[pos-1]]; 
 		while(p!=NULL) {
 			if(!Existe(vet, p->destino,pos)) {
 				vet[pos] = p->destino;
-				*custo = *custo + p->custo;
-				vetAux = CaminhoMenorCusto(g,b,vet,vetAux,pos+1,menorCusto,custo);
+				vetAux = CaminhoMenorCusto(g,b,vet,vetAux,pos+1,menorCusto);
 			}
 			p = p->prox;
 		}
@@ -290,9 +299,11 @@ int main() {
 			vet = (int *)malloc(numVertice*sizeof(int));
 			vet[0] = origem;
 			
-			
+			printf("--------------------\nCaminhos:\n");
 			Caminhos(g, destino, vet, 1); 
+			printf("\n--------------------\n");
 			free(vet);
+			
 		}else if(opcao == 7) {
 			int *vet, *vetAux;
 			int origem, destino;
@@ -331,8 +342,8 @@ int main() {
 			vet[0] = origem;
 			vetAux[0] = numVertice; // vetAux[0] = guarda a menor quantidade de caminhos
 			
-			int custo = 0, menorCusto = 0;
-			vetAux = CaminhoMenorCusto(g, destino, vet, vetAux, 1, &custo, &menorCusto);
+			int menorCusto = 0;
+			vetAux = CaminhoMenorCusto(g, destino, vet, vetAux, 1, &menorCusto);
 			
 			printf("-------------------------------\nCaminho com menor custo: ");
 			for(int i = 1; i <= vetAux[0]; i++) {  
@@ -351,4 +362,3 @@ int main() {
 	
 	return 0;
 }
-
