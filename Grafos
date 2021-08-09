@@ -125,22 +125,109 @@ int VerificaGrafoCompleto(lista **g, int n) {
 	
 }
 
+int Existe(int *vet, int valor, int n) {
+	
+	for(int i = 0; i < n; i++){
+		if(vet[i] == valor)
+			return 1;
+	}
+	return 0;
+}
+
+void Caminhos(lista **g, int b, int *vet, int pos) {
+	if(vet[pos-1] == b) {
+		printf("%\n");
+		for(int i = 0; i < pos; i++) {
+			printf("%d ", vet[i]);
+		}
+	} else {
+		lista *p = g[vet[pos-1]];
+		while(p!=NULL) {
+			if(!Existe(vet, p->destino,pos)) {
+				vet[pos] = p->destino;
+				Caminhos(g,b,vet,pos+1);
+			}
+			p = p->prox;
+		}
+	}
+}
+
+int* CaminhoMaisCurto(lista **g, int b, int *vet, int *vetAux, int pos) {
+	if(vet[pos-1] == b) {
+		
+		if(vetAux[0] > pos) {
+			vetAux[0] = pos;
+			
+			for(int i = 0; i < vetAux[0]; i++) {
+				vetAux[i+1] = vet[i];  // vetAux tem que estar na posicao i+1, pois a posicao inical guarda o indice até onde sera impresso
+			}
+			
+		}
+		
+	} else {
+		lista *p = g[vet[pos-1]];
+		while(p!=NULL) {
+			if(!Existe(vet, p->destino,pos)) {
+				vet[pos] = p->destino;
+				vetAux = CaminhoMaisCurto(g,b,vet,vetAux,pos+1);
+			}
+			p = p->prox;
+		}
+	}
+	
+	return vetAux;
+}
+
+int* CaminhoMenorCusto(lista **g, int b, int *vet, int *vetAux, int pos, int *menorCusto, int *custo) {
+	
+	if(vet[pos-1] == b) {
+		for(int i = 0; i < pos; i++) {
+				vetAux[i+1] = vet[i];  
+				printf("%d ",vet[i]);
+			}
+			
+		if(*menorCusto == 0 || *menorCusto > *custo){
+			*menorCusto = *custo;
+			vet[0] = pos;
+			for(int i = 0; i < vetAux[0]; i++) {
+				vetAux[i+1] = vet[i];  
+				printf("%d ",vet[i]);
+			}
+		}
+		*custo = 0;
+		printf("trocou %d menor custo %d\n",*custo,*menorCusto);
+		
+	} else {
+		lista *p = g[vet[pos-1]]; 
+		while(p!=NULL) {
+			if(!Existe(vet, p->destino,pos)) {
+				vet[pos] = p->destino;
+				*custo = *custo + p->custo;
+				vetAux = CaminhoMenorCusto(g,b,vet,vetAux,pos+1,menorCusto,custo);
+			}
+			p = p->prox;
+		}
+	}
+	
+	return vetAux;
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
-	int n;
+	int numVertice;
 	printf("Digite o número de vértices do grafico:\n");
-	scanf("%d",&n);
+	scanf("%d",&numVertice);
 	
 	lista **g;
-	g = (lista**)malloc((n+1)*sizeof(lista));
-	Inicializar(g, n);
+	g = (lista**)malloc((numVertice+1)*sizeof(lista));
+	Inicializar(g, numVertice);
 	
 	printf("\n------ Grafo Inicializado ------\n\n");
 	
 	int opcao = 0;
-	while(opcao != 6) {
-		printf("O que deseja fazer?\n 1.Inserir uma aresta no grafo\n 2.Remover uma aresta do grafo\n 3.Imprimir grafo\n 4.Imprimir os graus de entrada e saída de um vértice\n 5.Verificar se um grafo é completo\n 6.Sair\n>");
+	while(opcao != 9) {
+		printf("O que deseja fazer?\n 1.Inserir uma aresta no grafo\n 2.Remover uma aresta do grafo\n 3.Imprimir grafo\n 4.Imprimir os graus de entrada e saída de um vértice\n 5.Verificar se um grafo é completo\n 6.Imprimir todos os caminhos entre uma origem e um destino\n 7.Imprimir o caminho mais curto(com o menor número de arestas)\n 8.Imprimir o caminho de menor custo(menor soma dos custos das arestas)\n 9.Sair\n>");
 		scanf("%d", &opcao);
 		
 		if(opcao == 1) {
@@ -175,13 +262,13 @@ int main() {
 			printf("-----------------\n");
 			
 		}else if(opcao == 3) {
-			ImprimirGrafo(g, n);
+			ImprimirGrafo(g, numVertice);
 		}else if(opcao == 4) {
-			ImprimirGrausES(g, n);
+			ImprimirGrausES(g, numVertice);
 		}else if(opcao == 5) {
 			
 			int ehCompleto;
-			ehCompleto = VerificaGrafoCompleto(g, n);
+			ehCompleto = VerificaGrafoCompleto(g, numVertice);
 			if(ehCompleto == 1) {
 				printf("\n----------------------\n");
 				printf("O grafo está completo\n");
@@ -191,6 +278,69 @@ int main() {
 				printf("O grafo não está completo\n");
 				printf("--------------------------\n");
 			}
+		}else if(opcao == 6) {
+			int *vet;
+			int origem, destino;
+			
+			printf("Digite o vértice origem:\n>");
+			scanf("%d",&origem);
+			printf("Digite o vértice destino:\n>");
+			scanf("%d",&destino);
+			
+			vet = (int *)malloc(numVertice*sizeof(int));
+			vet[0] = origem;
+			
+			
+			Caminhos(g, destino, vet, 1); 
+			free(vet);
+		}else if(opcao == 7) {
+			int *vet, *vetAux;
+			int origem, destino;
+			
+			printf("Digite o vértice origem:\n>");
+			scanf("%d",&origem);
+			printf("Digite o vértice destino:\n>");
+			scanf("%d",&destino);
+			
+			vet = (int *)malloc(numVertice*sizeof(int));
+			vetAux = (int *)malloc((numVertice+1)*sizeof(int));
+			vet[0] = origem;
+			vetAux[0] = numVertice; // vetAux[0] = guarda a menor quantidade de caminhos
+			
+			
+			vetAux = CaminhoMaisCurto(g, destino, vet, vetAux, 1);
+			
+			printf("------------------------\nMenor caminho: ");
+			for(int i = 1; i <= vetAux[0]; i++) {  
+				printf("%d ",vetAux[i]);
+			}
+			printf("\n------------------------\n");
+			free(vet);
+			free(vetAux);
+		}else if(opcao == 8) {
+			int *vet, *vetAux;
+			int origem, destino;
+			
+			printf("Digite o vértice origem:\n>");
+			scanf("%d",&origem);
+			printf("Digite o vértice destino:\n>");
+			scanf("%d",&destino);
+			
+			vet = (int *)malloc(numVertice*sizeof(int));
+			vetAux = (int *)malloc((numVertice+1)*sizeof(int));
+			vet[0] = origem;
+			vetAux[0] = numVertice; // vetAux[0] = guarda a menor quantidade de caminhos
+			
+			int custo = 0, menorCusto = 0;
+			vetAux = CaminhoMenorCusto(g, destino, vet, vetAux, 1, &custo, &menorCusto);
+			
+			printf("-------------------------------\nCaminho com menor custo: ");
+			for(int i = 1; i <= vetAux[0]; i++) {  
+				printf("%d ",vetAux[i]);
+			}
+			printf("\n-------------------------------\n");
+			free(vet);
+			free(vetAux);
 		}
 	
 		printf("\n\n");
@@ -201,3 +351,4 @@ int main() {
 	
 	return 0;
 }
+
