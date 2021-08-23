@@ -29,10 +29,10 @@ typedef struct lista{
 void ImprimeOpcoes() {
 	printf("O que deseja fazer?\n");
 	printf(" 1.Inserir uma pessoa no inicio na lista\n");
-	printf(" 2.Remover uma pessoa pela matrícula\n");
-	printf(" 3.Buscar uma pessoa pela matrícula e imprimir seus dados\n");
-	printf(" 4.Contar o número de alunos de um determinado curso\n");
-	printf(" 5.Imprimir os professores de maior salário\n");
+	printf(" 2.Remover uma pessoa pela matrÃ­cula\n");
+	printf(" 3.Buscar uma pessoa pela matrÃ­cula e imprimir seus dados\n");
+	printf(" 4.Contar o nÃºmero de alunos de um determinado curso\n");
+	printf(" 5.Imprimir os professores de maior salÃ¡rio\n");
 	printf(" 6.Sair\n");
 }
 
@@ -53,7 +53,7 @@ Aluno *CriaAluno(){
 	char nome[26];
 	char curso[40];
 	
-	printf("Digite a matrícula do(a) aluno(a): \n");
+	printf("Digite a matrÃ­cula do(a) aluno(a): \n");
 	scanf("%d", &matricula);
 	printf("Digite o nome do(a) aluno(a):\n");
 	fflush(stdin);
@@ -78,9 +78,9 @@ Professor *CriaProfessor() {
 	double salario;
 	char nome[26];
 	
-	printf("Digite a matrícula do(a) professor(a):\n");
+	printf("Digite a matrÃ­cula do(a) professor(a):\n");
 	scanf("%d", &matricula);
-	printf("Digite o salário do(a) professorA:\n");
+	printf("Digite o salÃ¡rio do(a) professorA:\n");
 	scanf("%lf",&salario);
 	printf("Digite o nome do(a) professor(a):\n");
 	fflush(stdin);
@@ -101,7 +101,7 @@ int VerificaMatricula(Pessoa *p, int matricula) {
 			return 1;
 		else
 			return 0;	
-	}else{
+	}else if(p->tipo==2){
 		Aluno *a = (Aluno *)p->item;
 		if(a->matricula == matricula)
 			return 1;
@@ -130,7 +130,7 @@ Lista *RemoverPessoa(Lista *l, int matricula) {
 		auxAnt = auxAnt->prox;
 	}
 	      
-	printf("\n-------------------------\nMatrícula não encontrada.\n-------------------------\n");
+	printf("\n-------------------------\nMatrÃ­cula nÃ£o encontrada.\n-------------------------\n");
 	return l;	
 }
 
@@ -144,7 +144,7 @@ void *ImprimePessoaPelaMatricula(Lista *l, int matricula) {
 					printf("\n---- Professor(a) ----\n");
 					printf(" Matricula: %d\n",prof->matricula);
 					printf(" Nome: %s\n",prof->nome);
-					printf(" Salário: %.2lf\n",prof->salario);
+					printf(" SalÃ¡rio: %.2lf\n",prof->salario);
 					printf("-----------------------\n");
 				}else if(aux->pessoa->tipo == 2) {
 					Aluno *aluno = (Aluno *)aux->pessoa->item;
@@ -198,7 +198,7 @@ void ImprimeProfMaiorSalario(Lista *l, double maiorSalario) {
 	Lista *aux = l;
 	
 	
-	printf("\n------ Professores com o salário de %.2lf ------\n", maiorSalario);
+	printf("\n------ Professores com o salÃ¡rio de %.2lf ------\n", maiorSalario);
 	while(aux != NULL) {
 		if(aux->pessoa->tipo == 1) {
 			Professor *prof = (Professor *)aux->pessoa->item;
@@ -223,7 +223,7 @@ int main() {
 		if(opcao==1) //Inserir pessoa na lista
 		{ 
 			int tipo;
-			printf("\nEscolha uma das opções:\n 1.Professor(a) 2.Aluno(a)\n >");
+			printf("\nEscolha uma das opÃ§Ãµes:\n 1.Professor(a) 2.Aluno(a)\n >");
 			scanf("%d", &tipo);
 			if(tipo == 1) {	
 				Professor *p;
@@ -239,14 +239,14 @@ int main() {
 		}else if(opcao == 2) //Remover
 		{
 			int matricula;
-			printf("Digite a matrícula que deseja remover:\n");
+			printf("Digite a matrÃ­cula que deseja remover:\n");
 			scanf("%d",&matricula);
 			lista = RemoverPessoa(lista, matricula);
 			
 		}else if(opcao == 3) //Imprimir dados
 		{
 			int matricula;
-			printf("Digite a matrícula que deseja imprimir:\n");
+			printf("Digite a matrÃ­cula que deseja imprimir:\n");
 			scanf("%d",&matricula);
 			ImprimePessoaPelaMatricula(lista, matricula);
 		}else if(opcao == 4) // numero de alunos de um curso
@@ -257,7 +257,7 @@ int main() {
 			scanf("%[^\n]s",curso);
 			int num = NumeroAlunosNoCurso(lista, curso);
 			printf("\n-----------------------------------------------------\n");
-			printf(" Têm %d alunos matriculados no curso %s.\n",num,curso);
+			printf(" TÃªm %d alunos matriculados no curso %s.\n",num,curso);
 			printf("-----------------------------------------------------\n");
 			
 		}else if(opcao == 5) 
