@@ -101,7 +101,7 @@ int VerificaMatricula(Pessoa *p, int matricula) {
 			return 1;
 		else
 			return 0;	
-	}else if(p->tipo==2){
+	}else{
 		Aluno *a = (Aluno *)p->item;
 		if(a->matricula == matricula)
 			return 1;
@@ -141,6 +141,8 @@ Lista *RemoverPessoa(Lista *l, int matricula) {
 void *ImprimePessoaPelaMatricula(Lista *l, int matricula) {
 	
 	Lista *aux = l;
+	
+	int achou = 0;
 		while(aux!= NULL) {
 			if(VerificaMatricula(aux->pessoa, matricula)) {
 				if(aux->pessoa->tipo == 1) {
@@ -150,6 +152,7 @@ void *ImprimePessoaPelaMatricula(Lista *l, int matricula) {
 					printf(" Nome: %s\n",prof->nome);
 					printf(" Salário: %.2lf\n",prof->salario);
 					printf("-----------------------\n");
+					achou = 1;
 				}else if(aux->pessoa->tipo == 2) {
 					Aluno *aluno = (Aluno *)aux->pessoa->item;
 					printf("\n------ Aluno(a) ------\n");
@@ -158,10 +161,14 @@ void *ImprimePessoaPelaMatricula(Lista *l, int matricula) {
 					printf(" Curso: %s\n",aluno->curso);
 					printf(" Ano de ingresso: %d\n",aluno->anoDeIngresso);
 					printf("-----------------------\n");
+					achou = 1;
 				}
 			}
 			aux = aux->prox;
 		}
+	
+	if(!achou)	
+		printf("\n-------------------------\nMatrícula não encontrada.\n-------------------------\n");
 }
 
 int NumeroAlunosNoCurso(Lista *l, char *curso) {
