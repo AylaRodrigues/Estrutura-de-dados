@@ -115,6 +115,8 @@ Lista *RemoverPessoa(Lista *l, int matricula) {
 	Lista *auxAnt = l;
 	
 	if(VerificaMatricula(l->pessoa, matricula)){
+		free(auxAnt->pessoa->item);
+		free(auxAnt->pessoa);
 		free(auxAnt);
 		return aux;
 	}
@@ -122,6 +124,8 @@ Lista *RemoverPessoa(Lista *l, int matricula) {
 	while(aux != NULL) {
 		if(VerificaMatricula(aux->pessoa, matricula)) {
 			auxAnt->prox = aux->prox;
+			free(aux->pessoa->item);
+			free(aux->pessoa);
 			free(aux);
 			return l;
 		}
