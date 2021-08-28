@@ -26,12 +26,12 @@ int main() {
 		
 		}else if(opcao == 2) {
 			
-			
+	
 		}else if(opcao == 3) {
-			
-		}else if(opcao == 4) {
-			
+			//retornar a chave e a estrutura
 		}
+			
+	
 		
 		printf("\n\n");
 		system("pause");	
