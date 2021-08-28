@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 void MenuOpcoes(){
 	printf("O que deseja fazer?\n");
