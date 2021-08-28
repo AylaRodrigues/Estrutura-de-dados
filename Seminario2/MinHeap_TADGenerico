@@ -29,15 +29,17 @@ int main() {
 			
 	
 		}else if(opcao == 3) {
-			//retornar a chave e a estrutura
+		//retornar a chave e a estrutura do item removido?
 		}
-			
-	
+		
+		else if(opcao == 4) {
+			break;
+		}
 		
 		printf("\n\n");
 		system("pause");	
 	}
-	
+
 	printf("O usuário saiu!\n");
 	return 0;
 	
