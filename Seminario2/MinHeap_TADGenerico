@@ -1,1 +1,17 @@
+//Grupo: Ayla Rodrigues, Douglas Mareli, Sofia Kitaeva
+//MinHeap- TAD
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+void MenuOpcoes(){
+	printf("O que deseja fazer?\n");
+	printf(" 1.Inserir um elemento no heap.\n");
+	printf(" 2.Remover um elemento do heap.\n");
+	printf(" 3.Impimir o heap.\n");
+	printf(" 4.Sair\n");	
+}
+
+
 
