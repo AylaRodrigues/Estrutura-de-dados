@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <string.h>
+#include "Minheap.h"
+#include <time.h>
 
 void MenuOpcoes(){
 	printf("O que deseja fazer?\n");
@@ -17,15 +18,31 @@ void MenuOpcoes(){
 int main() {
 	setlocale(LC_ALL, "");
 	
+	Heap heap = Inicializar();
+	
 	int opcao = 0;
 	while(opcao!=4)  {
 		MenuOpcoes();
 		scanf("%d", &opcao);
 		
-		if(opcao == 1) {
+		if(opcao == 1) //Inserir Elemento
+		{
+			// gerar chave aleatória
+			//srand(time(0));
+			//int chave = rand()%100;
+			int chave;
+			printf("Digite a chave:\n");
+			scanf("%d", &chave);
 			
-		
-		}else if(opcao == 2) {
+			int num;
+			printf("Digite um numero:\n");
+			scanf("%d", &num);
+			
+			heap = Inserir(heap, chave, &num, sizeof(int));
+			
+			
+		}else if(opcao == 2) //Remover Elemento
+		{
 			
 	
 		}else if(opcao == 3) {
@@ -44,5 +61,3 @@ int main() {
 	return 0;
 	
 }
-
-
