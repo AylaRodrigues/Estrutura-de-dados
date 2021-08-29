@@ -18,7 +18,11 @@ void MenuOpcoes(){
 int main() {
 	setlocale(LC_ALL, "");
 	
-	Heap heap = Inicializar();
+	printf("Digite o tamanho do Heap que deseja:\n");
+	int tamanho;
+	scanf("%d",&tamanho);
+	
+	Heap heap = Inicializar(tamanho);
 	
 	int opcao = 0;
 	while(opcao!=4)  {
@@ -27,36 +31,40 @@ int main() {
 		
 		if(opcao == 1) //Inserir Elemento
 		{
-			// gerar chave aleatória
-			//srand(time(0));
-			//int chave = rand()%100;
-			int chave;
-			printf("Digite a chave:\n");
-			scanf("%d", &chave);
+			//gerar chave aleatória
+			srand(time(0));
+			int chave = rand()%100;
 			
-			int num;
-			printf("Digite um numero:\n");
-			scanf("%d", &num);
+			//exemplo
+			char palavra[20];
+			printf("Digite uma string:\n");
+			scanf("%s", palavra);
 			
-			heap = Inserir(heap, chave, &num, sizeof(int));
+			Inserir(heap, chave, &palavra, sizeof(int));
 			
-			
+
 		}else if(opcao == 2) //Remover Elemento
 		{
+			int chave;
+			char palavra[20];
+			int removeu = Remover(heap, &chave, &palavra, sizeof(int));
+			printf("Chave %d\nObjeto: %s\n", chave, palavra);
 			
 	
-		}else if(opcao == 3) {
-		//retornar a chave e a estrutura do item removido?
+		}else if(opcao == 3) 
+		{
+			Imprimir(heap);
+			
+		}else if(opcao == 4) {
+			heap = Destruir(heap);
+			printf("------------------\n");
+			printf(" Heap destruitdo\n");
+			printf("------------------\n");
 		}
 		
-		else if(opcao == 4) {
-			break;
-		}
-		
-		printf("\n\n");
-		system("pause");	
+		printf("\n\n");	
 	}
-
+	
 	printf("O usuário saiu!\n");
 	return 0;
 	
