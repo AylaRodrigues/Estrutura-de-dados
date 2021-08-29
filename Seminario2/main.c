@@ -40,7 +40,7 @@ int main() {
 			printf("Digite uma string:\n");
 			scanf("%s", palavra);
 			
-			Inserir(heap, chave, &palavra, sizeof(int));
+			Inserir(heap, chave, &palavra, 20*sizeof(char));
 			
 
 		}else if(opcao == 2) //Remover Elemento
