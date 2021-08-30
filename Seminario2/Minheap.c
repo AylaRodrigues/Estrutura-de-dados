@@ -117,6 +117,7 @@ int Remover(Heap h, int *chave, void *objeto, int sizeObj) {
 		memcpy(objeto, h->vet[0].objeto, sizeObj);
 		free(h->vet[0].objeto);
 		h->vet[0] = h->vet[(h->totalElementos)-1];
+		h->vet[(h->totalElementos)-1].objeto = NULL;
 		h->totalElementos--;
 		AjustarDescendo(h, 0);
 		return 1;
@@ -124,6 +125,10 @@ int Remover(Heap h, int *chave, void *objeto, int sizeObj) {
 }
 
 void Imprimir(Heap h) {
+	
+	if(h->totalElementos == 0) {
+		printf("\n---- Não há elementos no heap ----\n");	
+	}
 	
 	for(int i = 0; i < h->totalElementos; i++) {
 		printf("- %d -", h->vet[i].chave);
