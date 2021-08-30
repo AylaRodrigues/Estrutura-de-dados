@@ -7,6 +7,11 @@
 #include "Minheap.h"
 #include <time.h>
 
+typedef struct pessoa {
+	char nome[30];
+	int idade;
+}Pessoa;
+
 void MenuOpcoes(){
 	printf("O que deseja fazer?\n");
 	printf(" 1.Inserir um elemento no heap.\n");
@@ -15,20 +20,31 @@ void MenuOpcoes(){
 	printf(" 4.Sair\n");	
 }
 
+int PegaTamanhoHeap() {
+	
+	int tamanho; 
+	printf("---- Digite o tamanho do Heap que deseja: ----\n");
+	scanf("%d",&tamanho);
+	
+	return tamanho;
+}
+
 int main() {
 	setlocale(LC_ALL, "");
 	
-	printf("Digite o tamanho do Heap que deseja:\n");
-	int tamanho;
-	scanf("%d",&tamanho);
 	
+	int tamanho = PegaTamanhoHeap();
 	Heap heap = Inicializar(tamanho);
 	
+	printf("\n---- Heap Inicializado ----\n");
+	
 	int opcao = 0;
+	printf("\n\n");
 	while(opcao!=4)  {
 		MenuOpcoes();
 		scanf("%d", &opcao);
 		
+		printf("\n");
 		if(opcao == 1) //Inserir Elemento
 		{
 			//gerar chave aleatória
@@ -36,20 +52,24 @@ int main() {
 			int chave = rand()%100;
 			
 			//exemplo
-			char palavra[20];
-			printf("Digite uma string:\n");
-			scanf("%s", palavra);
+			Pessoa *p = (Pessoa *)malloc(sizeof(Pessoa));
+			printf("Digite uma nome:\n");
+			fflush(stdin);
+			scanf("%[^\n]s", p->nome);
+			fflush(stdin);
+			printf("Digite a idade: \n");
+			scanf("%d", &p->idade);
 			
-			Inserir(heap, chave, &palavra, 20*sizeof(char));
+			Inserir(heap, chave, &p, sizeof(Pessoa));
 			
-
 		}else if(opcao == 2) //Remover Elemento
 		{
 			int chave;
-			char palavra[20];
-			int removeu = Remover(heap, &chave, &palavra, sizeof(int));
-			printf("Chave %d\nObjeto: %s\n", chave, palavra);
-			
+			Pessoa *p;
+			int removeu = Remover(heap, &chave, &p, sizeof(Pessoa));
+			printf("\n----------------\n");
+			printf("Chave %d\n Objeto:\n -Nome:%s\n -Idade:%d\n", chave, p->nome, p->idade);
+			printf("----------------\n");
 	
 		}else if(opcao == 3) 
 		{
