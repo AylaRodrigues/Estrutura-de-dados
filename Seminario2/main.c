@@ -64,12 +64,14 @@ int main() {
 			
 		}else if(opcao == 2) //Remover Elemento
 		{
-			int chave;
+			
 			Pessoa *p;
-			int removeu = Remover(heap, &chave, &p, sizeof(Pessoa));
-			printf("\n----------------\n");
-			printf("Chave %d\n Objeto:\n -Nome:%s\n -Idade:%d\n", chave, p->nome, p->idade);
-			printf("----------------\n");
+			int chave = Remover(heap, &p, sizeof(Pessoa));
+			if(chave != 0) {
+				printf("\n----------------\n");
+				printf("Chave %d\n Objeto:\n -Nome:%s\n -Idade:%d\n", chave, p->nome, p->idade);
+				printf("----------------\n");
+			}
 	
 		}else if(opcao == 3) 
 		{
