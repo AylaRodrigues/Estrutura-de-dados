@@ -53,7 +53,7 @@ int main() {
 			
 			//exemplo
 			Pessoa *p = (Pessoa *)malloc(sizeof(Pessoa));
-			printf("Digite uma nome:\n");
+			printf("Digite um nome:\n");
 			fflush(stdin);
 			scanf("%[^\n]s", p->nome);
 			fflush(stdin);
@@ -78,7 +78,7 @@ int main() {
 		}else if(opcao == 4) {
 			heap = Destruir(heap);
 			printf("------------------\n");
-			printf(" Heap destruitdo\n");
+			printf(" Heap destruído\n");
 			printf("------------------\n");
 		}
 		
