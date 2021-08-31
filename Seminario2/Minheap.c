@@ -109,18 +109,19 @@ void Inserir(Heap h, int chave, void *objeto, int sizeObj) {
 	
 }
 
-int Remover(Heap h, int *chave, void *objeto, int sizeObj) {
+int Remover(Heap h, void *objeto, int sizeObj) {
 	if(h->totalElementos == 0)
 		return 0; // caso não encontre nada
 	else {
-		*chave = h->vet[0].chave;
+		
 		memcpy(objeto, h->vet[0].objeto, sizeObj);
 		free(h->vet[0].objeto);
 		h->vet[0] = h->vet[(h->totalElementos)-1];
 		h->vet[(h->totalElementos)-1].objeto = NULL;
 		h->totalElementos--;
 		AjustarDescendo(h, 0);
-		return 1;
+	
+		return h->vet[0].chave;
 	}
 }
 
